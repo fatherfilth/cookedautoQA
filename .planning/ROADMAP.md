@@ -13,7 +13,7 @@ This roadmap delivers a production-ready synthetic monitoring system for cooked.
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation & Test Infrastructure** - Project scaffolding, Page Object Model, reliability standards ✓ 2026-02-15
-- [ ] **Phase 2: Critical Path Tests** - Smoke tests, auth flows, game launch monitoring
+- [x] **Phase 2: Critical Path Tests** - Smoke tests, auth flows, game launch monitoring ✓ 2026-02-15
 - [ ] **Phase 3: Social & Live Features** - WebSocket chat monitoring, tipping, Latest & Greatest
 - [ ] **Phase 4: Crypto Integration** - Swapped.com buy flow, crypto transaction testing
 - [ ] **Phase 5: CI/CD & Alerting** - GitHub Actions scheduling, Slack alerts, artifact management
@@ -55,9 +55,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md -- Smoke tests: homepage hero, navigation, lobby categories, search flow
-- [ ] 02-02-PLAN.md -- Game launch monitoring: slot, table, live dealer with configurable game IDs
-- [ ] 02-03-PLAN.md -- Auth flows: login, session persistence, registration (stop-before-submit)
+- [x] 02-01-PLAN.md -- Smoke tests: homepage hero, navigation, lobby categories, search flow ✓
+- [x] 02-02-PLAN.md -- Game launch monitoring: slot, table, live dealer with configurable game IDs ✓
+- [x] 02-03-PLAN.md -- Auth flows: login, session persistence, registration (stop-before-submit) ✓
 
 ### Phase 3: Social & Live Features
 **Goal**: Monitor WebSocket-based chat and social engagement features
@@ -126,7 +126,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Test Infrastructure | 2/2 | ✓ Complete | 2026-02-15 |
-| 2. Critical Path Tests | 0/3 | Planned | - |
+| 2. Critical Path Tests | 3/3 | ✓ Complete | 2026-02-15 |
 | 3. Social & Live Features | 0/TBD | Not started | - |
 | 4. Crypto Integration | 0/TBD | Not started | - |
 | 5. CI/CD & Alerting | 0/TBD | Not started | - |
@@ -134,4 +134,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-15 — Phase 1 complete*
+*Last updated: 2026-02-15 — Phase 2 complete*
