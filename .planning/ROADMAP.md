@@ -12,7 +12,7 @@ This roadmap delivers a production-ready synthetic monitoring system for cooked.
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation & Test Infrastructure** - Project scaffolding, Page Object Model, reliability standards
+- [x] **Phase 1: Foundation & Test Infrastructure** - Project scaffolding, Page Object Model, reliability standards ✓ 2026-02-15
 - [ ] **Phase 2: Critical Path Tests** - Smoke tests, auth flows, game launch monitoring
 - [ ] **Phase 3: Social & Live Features** - WebSocket chat monitoring, tipping, Latest & Greatest
 - [ ] **Phase 4: Crypto Integration** - Swapped.com buy flow, crypto transaction testing
@@ -37,8 +37,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md -- Project scaffolding, Playwright config, folder structure, health-check test
-- [ ] 01-02-PLAN.md -- Test helpers, Page Object Model, selector strategy documentation
+- [x] 01-01-PLAN.md -- Project scaffolding, Playwright config, folder structure, health-check test ✓
+- [x] 01-02-PLAN.md -- Test helpers, Page Object Model, selector strategy documentation ✓
 
 ### Phase 2: Critical Path Tests
 **Goal**: Validate core revenue-generating user journeys (lobby, games, auth)
@@ -123,7 +123,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Test Infrastructure | 0/2 | Planned | - |
+| 1. Foundation & Test Infrastructure | 2/2 | ✓ Complete | 2026-02-15 |
 | 2. Critical Path Tests | 0/TBD | Not started | - |
 | 3. Social & Live Features | 0/TBD | Not started | - |
 | 4. Crypto Integration | 0/TBD | Not started | - |
@@ -132,4 +132,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-15*
+*Last updated: 2026-02-15 — Phase 1 complete*
