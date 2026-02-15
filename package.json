@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "Synthetic monitoring for cooked.com critical user flows",
   "type": "module",
+  "packageManager": "npm@10.9.2",
   "scripts": {
     "test": "playwright test",
     "test:critical": "playwright test --grep @critical",
     "test:warning": "playwright test --grep @warning",
+    "test:ci": "playwright test --grep @critical",
     "test:headed": "cross-env HEADLESS=false playwright test",
     "test:debug": "cross-env HEADLESS=false playwright test --debug",
     "typecheck": "tsc --noEmit"
