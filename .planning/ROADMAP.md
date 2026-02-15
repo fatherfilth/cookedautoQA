@@ -101,10 +101,12 @@ Plans:
   7. Playwright HTML report and JSON summary uploaded as GitHub Actions artifacts
   8. Node modules cached for faster CI runs
   9. Concurrency control prevents overlapping scheduled runs
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- TBD (to be planned via /gsd:plan-phase 5)
+- [ ] 05-01-PLAN.md -- GitHub Actions workflow with schedule, push, dispatch triggers, caching, and artifact uploads
+- [ ] 05-02-PLAN.md -- Slack alerting script with severity logic, consecutive failure tracking, and JSON summary reporting
+- [ ] 05-03-PLAN.md -- Severity tags on existing tests and end-to-end integration verification
 
 ### Phase 6: Documentation & Polish
 **Goal**: Provide team with clear docs for local setup, test authoring, and alert triage
@@ -130,9 +132,9 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. Critical Path Tests | 3/3 | ✓ Complete | 2026-02-15 |
 | 3. Social & Live Features | 2/2 | ✓ Complete | 2026-02-15 |
 | 4. Crypto Integration | 1/1 | ✓ Complete | 2026-02-15 |
-| 5. CI/CD & Alerting | 0/TBD | Not started | - |
+| 5. CI/CD & Alerting | 0/3 | Not started | - |
 | 6. Documentation & Polish | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-15 -- Phase 4 complete*
+*Last updated: 2026-02-16 -- Phase 5 planned*
