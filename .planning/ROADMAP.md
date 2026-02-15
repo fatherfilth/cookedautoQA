@@ -82,10 +82,10 @@ Plans:
   1. Swapped.com buy crypto flow is reachable from cooked.com and loads correctly
   2. Crypto buy flow progresses through steps (wallet connection, amount selection) and stops before real purchase
   3. Browser context isolation prevents wallet state pollution between tests
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- TBD (to be planned via /gsd:plan-phase 4)
+- [ ] 04-01-PLAN.md -- SwappedIntegrationPage page object, crypto config, Swapped.com buy flow tests (CRYPTO-01, CRYPTO-02)
 
 ### Phase 5: CI/CD & Alerting
 **Goal**: Automate test execution on schedule with smart failure alerting
@@ -129,10 +129,10 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Foundation & Test Infrastructure | 2/2 | ✓ Complete | 2026-02-15 |
 | 2. Critical Path Tests | 3/3 | ✓ Complete | 2026-02-15 |
 | 3. Social & Live Features | 2/2 | ✓ Complete | 2026-02-15 |
-| 4. Crypto Integration | 0/TBD | Not started | - |
+| 4. Crypto Integration | 0/1 | In Progress | - |
 | 5. CI/CD & Alerting | 0/TBD | Not started | - |
 | 6. Documentation & Polish | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-15 — Phase 3 complete*
+*Last updated: 2026-02-15 -- Phase 4 planned*
