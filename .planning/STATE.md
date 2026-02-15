@@ -5,22 +5,22 @@
 See: .planning/PROJECT.md (updated 2026-02-15)
 
 **Core value:** Detect breakages in key user flows on cooked.com before real users hit them, with fast alerts and actionable failure artifacts.
-**Current focus:** Phase 4 - Crypto Integration
+**Current focus:** Phase 5 - CI/CD & Alerting
 
 ## Current Position
 
-Phase: 4 of 6 (Crypto Integration)
-Plan: 1 of 1 (completed)
-Status: Phase Complete
-Last activity: 2026-02-15 — Completed 04-01-PLAN.md (Swapped.com Crypto Buy Flow Tests)
+Phase: 5 of 6 (CI/CD & Alerting)
+Plan: 1 of 3 (completed)
+Status: In Progress
+Last activity: 2026-02-15 — Completed 05-01-PLAN.md (GitHub Actions CI Workflow)
 
-Progress: [████████░░] 73%
+Progress: [████████░░] 75%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 2.1 minutes
+- Total plans completed: 9
+- Average duration: 2.0 minutes
 - Total execution time: 0.3 hours
 
 **By Phase:**
@@ -31,13 +31,15 @@ Progress: [████████░░] 73%
 | 02 - Critical Path Tests | 3 | 7.4 min | 2.5 min |
 | 03 - Social & Live Features | 2 | 3.5 min | 1.8 min |
 | 04 - Crypto Integration | 1 | 2.2 min | 2.2 min |
+| 05 - CI/CD & Alerting | 1 | 1.6 min | 1.6 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-02 (3 min), 02-03 (2.4 min), 03-01 (2.0 min), 03-02 (1.5 min), 04-01 (2.2 min)
+- Last 5 plans: 02-03 (2.4 min), 03-01 (2.0 min), 03-02 (1.5 min), 04-01 (2.2 min), 05-01 (1.6 min)
 - Trend: Stable velocity
 
 *Updated after each plan completion*
 | Phase 04 P01 | 2.2 | 2 tasks | 4 files |
+| Phase 05-ci-cd-alerting P01 | 1.6 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -71,6 +73,10 @@ Recent decisions affecting current work:
 - [Phase 04]: Use FrameLocator with compound CSS selector for iframe content interaction (not .or() method) - API limitation workaround
 - [Phase 04]: Stop-before-purchase enforcement in CRYPTO-02 (buy button verified but never clicked) - prevents real crypto transactions
 - [Phase 04]: Broad fallback selectors for all iframe content elements until live site inspection - Swapped.com widget structure unknown
+- [Phase 05-ci-cd-alerting]: Full test suite runs on all CI triggers (not just @critical) for maximum coverage - adjust later if CI minutes become concern
+- [Phase 05-02]: Single script for parsing, tracking, alerting, and reporting (keeps CI simple)
+- [Phase 05-02]: ALERT_THRESHOLD = 2 consecutive failures (reduces noise while alerting quickly)
+- [Phase 05-02]: Default untagged tests to WARNING severity (conservative approach)
 
 ### Pending Todos
 
@@ -98,7 +104,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-15 (plan execution)
-Stopped at: Completed 04-01-PLAN.md - Swapped.com Crypto Buy Flow Tests
+Stopped at: Completed 05-01-PLAN.md - GitHub Actions CI Workflow
 Resume file: None
 
 ---
