@@ -116,10 +116,10 @@ Plans:
   1. README covers how to run locally, set env vars, add new tests, and troubleshoot flakiness
   2. docs/RUNBOOK.md provides alert triage checklist (what to check first, escalation paths, common false positives)
   3. Selector strategy is documented (how to add data-testid, fallback patterns)
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- TBD (to be planned via /gsd:plan-phase 6)
+- [ ] 06-01-PLAN.md -- README for developer onboarding and RUNBOOK for alert triage
 
 ## Progress
 
@@ -133,7 +133,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Social & Live Features | 2/2 | ✓ Complete | 2026-02-15 |
 | 4. Crypto Integration | 1/1 | ✓ Complete | 2026-02-15 |
 | 5. CI/CD & Alerting | 3/3 | ✓ Complete | 2026-02-16 |
-| 6. Documentation & Polish | 0/TBD | Not started | - |
+| 6. Documentation & Polish | 0/1 | Not started | - |
 
 ---
 *Roadmap created: 2026-02-15*
