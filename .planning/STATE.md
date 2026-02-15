@@ -5,22 +5,22 @@
 See: .planning/PROJECT.md (updated 2026-02-15)
 
 **Core value:** Detect breakages in key user flows on cooked.com before real users hit them, with fast alerts and actionable failure artifacts.
-**Current focus:** Phase 2 - Critical Path Tests
+**Current focus:** Phase 3 - Social & Live Features
 
 ## Current Position
 
-Phase: 2 of 6 (Critical Path Tests)
-Plan: 3 of 3 (completed)
-Status: Completed
-Last activity: 2026-02-15 — Completed 02-02-PLAN.md (Game Launch Monitoring Tests)
+Phase: 3 of 6 (Social & Live Features)
+Plan: 1 of 2 (completed)
+Status: In Progress
+Last activity: 2026-02-15 — Completed 03-01-PLAN.md (Chat WebSocket and Message Tests)
 
-Progress: [████░░░░░░] 47%
+Progress: [█████░░░░░] 55%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: 2.4 minutes
+- Total plans completed: 6
+- Average duration: 2.3 minutes
 - Total execution time: 0.2 hours
 
 **By Phase:**
@@ -29,9 +29,10 @@ Progress: [████░░░░░░] 47%
 |-------|-------|-------|----------|
 | 01 - Foundation & Test Infrastructure | 2 | 5 min | 2.5 min |
 | 02 - Critical Path Tests | 3 | 7.4 min | 2.5 min |
+| 03 - Social & Live Features | 1 | 2.0 min | 2.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (3 min), 01-02 (2 min), 02-01 (2 min), 02-02 (3 min), 02-03 (2.4 min)
+- Last 5 plans: 01-02 (2 min), 02-01 (2 min), 02-02 (3 min), 02-03 (2.4 min), 03-01 (2.0 min)
 - Trend: Consistent velocity
 
 *Updated after each plan completion*
@@ -60,6 +61,9 @@ Recent decisions affecting current work:
 - [Phase 02-02]: Environment-based game configuration with placeholder defaults (actual game IDs set after live site inspection)
 - [Phase 02-02]: Broad iframe content selector until provider-specific patterns documented (canvas, [data-game-state], .game-container, body)
 - [Phase 02-02]: FrameLocator with compound CSS selector instead of .or() method (API limitation workaround)
+- [Phase 03]: WebSocket listener must be set up BEFORE page navigation (connections establish during load)
+- [Phase 03]: Use DOM-based assertions (toBeVisible, textContent) not WebSocket frame payload inspection for chat tests
+- [Phase 03]: Tipping flow locators follow stop-before-payment pattern (DO NOT CLICK submitTipButton)
 
 ### Pending Todos
 
@@ -76,10 +80,16 @@ None yet.
 **Phase 2 (Critical Path):**
 - Actual game provider iframe URLs and selectors unknown — need to inspect production site to document iframe src patterns and "game ready" indicators per provider
 
+**Phase 3 (Social & Live Features):**
+- Chat page path unknown (/chat or /live-chat) - requires live site inspection
+- WebSocket URL pattern needs refinement after inspecting DevTools Network tab
+- Chat container and message selectors are broad fallback chains - need tightening after live site inspection
+- Tipping modal structure assumed based on common patterns - needs validation against production
+
 ## Session Continuity
 
 Last session: 2026-02-15 (plan execution)
-Stopped at: Completed 02-02-PLAN.md - Game Launch Monitoring Tests
+Stopped at: Completed 03-01-PLAN.md - Chat WebSocket and Message Tests
 Resume file: None
 
 ---
