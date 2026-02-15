@@ -52,10 +52,12 @@ Plans:
   5. User can log in with email/password and session persists across navigation
   6. Registration flow completes step-by-step without creating real accounts
   7. Game launch tests use configurable game IDs per provider (slot/table/live)
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- TBD (to be planned via /gsd:plan-phase 2)
+- [ ] 02-01-PLAN.md -- Smoke tests: homepage hero, navigation, lobby categories, search flow
+- [ ] 02-02-PLAN.md -- Game launch monitoring: slot, table, live dealer with configurable game IDs
+- [ ] 02-03-PLAN.md -- Auth flows: login, session persistence, registration (stop-before-submit)
 
 ### Phase 3: Social & Live Features
 **Goal**: Monitor WebSocket-based chat and social engagement features
@@ -124,7 +126,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Test Infrastructure | 2/2 | ✓ Complete | 2026-02-15 |
-| 2. Critical Path Tests | 0/TBD | Not started | - |
+| 2. Critical Path Tests | 0/3 | Planned | - |
 | 3. Social & Live Features | 0/TBD | Not started | - |
 | 4. Crypto Integration | 0/TBD | Not started | - |
 | 5. CI/CD & Alerting | 0/TBD | Not started | - |
