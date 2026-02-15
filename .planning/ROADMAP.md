@@ -68,10 +68,11 @@ Plans:
   2. Chat messages are visible in the interface after connection
   3. Tipping flow initiates, confirms, and reaches success state (stop before real transaction)
   4. "Latest and Greatest" promotional messages display on appropriate page
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- TBD (to be planned via /gsd:plan-phase 3)
+- [ ] 03-01-PLAN.md -- ChatPage page object, WebSocket connection test, chat message visibility test
+- [ ] 03-02-PLAN.md -- Tipping flow test (stop-before-payment), promotional content display test
 
 ### Phase 4: Crypto Integration
 **Goal**: Test Swapped.com crypto purchase flow end-to-end
@@ -127,11 +128,11 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Foundation & Test Infrastructure | 2/2 | ✓ Complete | 2026-02-15 |
 | 2. Critical Path Tests | 3/3 | ✓ Complete | 2026-02-15 |
-| 3. Social & Live Features | 0/TBD | Not started | - |
+| 3. Social & Live Features | 0/2 | Planned | - |
 | 4. Crypto Integration | 0/TBD | Not started | - |
 | 5. CI/CD & Alerting | 0/TBD | Not started | - |
 | 6. Documentation & Polish | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-15 — Phase 2 complete*
+*Last updated: 2026-02-15 — Phase 3 planned*
