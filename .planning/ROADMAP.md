@@ -34,10 +34,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   6. All secrets managed via environment variables (BASE_URL, SLACK_WEBHOOK_URL, TEST_USER_EMAIL, TEST_USER_PASSWORD)
   7. Stable selector strategy documented (data-testid preferred, role-based fallbacks)
   8. Explicit wait patterns enforced (waitForSelector, no networkidle)
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- TBD (to be planned via /gsd:plan-phase 1)
+- [ ] 01-01-PLAN.md -- Project scaffolding, Playwright config, folder structure, health-check test
+- [ ] 01-02-PLAN.md -- Test helpers, Page Object Model, selector strategy documentation
 
 ### Phase 2: Critical Path Tests
 **Goal**: Validate core revenue-generating user journeys (lobby, games, auth)
@@ -122,7 +123,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Test Infrastructure | 0/TBD | Not started | - |
+| 1. Foundation & Test Infrastructure | 0/2 | Planned | - |
 | 2. Critical Path Tests | 0/TBD | Not started | - |
 | 3. Social & Live Features | 0/TBD | Not started | - |
 | 4. Crypto Integration | 0/TBD | Not started | - |
