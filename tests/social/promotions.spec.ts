@@ -9,7 +9,7 @@ import { LobbyPage } from '../pages/LobbyPage.js';
  * TODO: If promotions are not on lobby page, update to navigate to dedicated promotions/offers page
  * TODO: Refine promo section selector after inspecting live site. Check lobby, homepage, and dedicated promotions page.
  */
-test('"Latest and Greatest" promotional messages display @social', async ({ page }) => {
+test('"Latest and Greatest" promotional messages display @warning @social', async ({ page }) => {
   const lobbyPage = new LobbyPage(page);
 
   // Navigate to lobby/homepage (promotions most likely appear there)

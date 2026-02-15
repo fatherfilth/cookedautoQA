@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LobbyPage } from '../pages/LobbyPage.js';
 
-test('search returns results and user can open a game @smoke', async ({ page }) => {
+test('search returns results and user can open a game @warning @smoke', async ({ page }) => {
   const lobbyPage = new LobbyPage(page);
   await lobbyPage.open();
 

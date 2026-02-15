@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('top navigation reaches at least 2 major sections @smoke', async ({ page }) => {
+test('top navigation reaches at least 2 major sections @warning @smoke', async ({ page }) => {
   await page.goto('/');
 
   // Locate the navigation element
