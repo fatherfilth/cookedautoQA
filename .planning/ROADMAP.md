@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Social & Live Features** - WebSocket chat monitoring, tipping, Latest & Greatest ✓ 2026-02-15
 - [x] **Phase 4: Crypto Integration** - Swapped.com buy flow, crypto transaction testing ✓ 2026-02-15
 - [x] **Phase 5: CI/CD & Alerting** - GitHub Actions scheduling, Slack alerts, artifact management ✓ 2026-02-16
-- [ ] **Phase 6: Documentation & Polish** - README, runbook, selector strategy documentation
+- [x] **Phase 6: Documentation & Polish** - README, runbook, selector strategy documentation ✓ 2026-02-16
 
 ## Phase Details
 
@@ -119,7 +119,7 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 06-01-PLAN.md -- README for developer onboarding and RUNBOOK for alert triage
+- [x] 06-01-PLAN.md -- README for developer onboarding and RUNBOOK for alert triage ✓
 
 ## Progress
 
@@ -133,8 +133,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Social & Live Features | 2/2 | ✓ Complete | 2026-02-15 |
 | 4. Crypto Integration | 1/1 | ✓ Complete | 2026-02-15 |
 | 5. CI/CD & Alerting | 3/3 | ✓ Complete | 2026-02-16 |
-| 6. Documentation & Polish | 0/1 | Not started | - |
+| 6. Documentation & Polish | 1/1 | ✓ Complete | 2026-02-16 |
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-16 -- Phase 5 complete*
+*Last updated: 2026-02-16 -- Phase 6 complete — all phases done*
