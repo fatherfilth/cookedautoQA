@@ -52,18 +52,18 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| VERIFY-01 | — | Pending |
-| VERIFY-02 | — | Pending |
-| BET-01 | — | Pending |
-| BET-02 | — | Pending |
-| LOG-01 | — | Pending |
-| LOG-02 | — | Pending |
+| VERIFY-01 | Phase 9 | Pending |
+| VERIFY-02 | Phase 9 | Pending |
+| BET-01 | Phase 10 | Pending |
+| BET-02 | Phase 10 | Pending |
+| LOG-01 | Phase 11 | Pending |
+| LOG-02 | Phase 11 | Pending |
 
 **Coverage:**
 - v1.2 requirements: 6 total
-- Mapped to phases: 0
-- Unmapped: 6 ⚠️
+- Mapped to phases: 6
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-02-16*
-*Last updated: 2026-02-16 after initial definition*
+*Last updated: 2026-02-16 after v1.2 roadmap creation*
