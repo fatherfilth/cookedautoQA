@@ -1,33 +1,22 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage.js';
 import { LobbyPage } from '../pages/LobbyPage.js';
 
-test('login session persists across page navigation @critical @auth', async ({ page, context }) => {
-  // Skip if no test credentials are available
-  const email = process.env.TEST_USER_EMAIL;
-  const password = process.env.TEST_USER_PASSWORD;
-  if (!email || !password) {
-    test.skip(true, 'TEST_USER_EMAIL and TEST_USER_PASSWORD must be set — skipping session persistence test');
-    return;
-  }
-
-  const loginPage = new LoginPage(page);
+test('authenticated session persists across page navigation @critical @auth', async ({ page, context }) => {
   const lobbyPage = new LobbyPage(page);
 
-  // Login via auth dialog
-  await loginPage.open();
-  await loginPage.login(email, password);
+  // Navigate to homepage - storageState will be loaded automatically by Playwright
+  await page.goto('/');
 
-  // Wait for dialog to close or redirect
-  await Promise.race([
-    loginPage.authDialog.waitFor({ state: 'hidden', timeout: 15_000 }).catch(() => {}),
-    page.waitForURL('**/account**', { timeout: 15_000 }).catch(() => {}),
-    page.waitForURL('**/', { timeout: 15_000 }).catch(() => {}),
-  ]);
+  // Verify authenticated state - auth indicator should be visible
+  const authIndicator = page.getByRole('button', { name: /log out|sign out|account|profile/i })
+    .or(page.getByText(/welcome|account|profile/i))
+    .or(page.locator('[class*="avatar"], [class*="user"], [class*="profile"]').first());
 
-  // Capture storage state after login
-  const stateAfterLogin = await context.storageState();
-  const sessionCookie = stateAfterLogin.cookies.find(
+  await expect(authIndicator).toBeVisible({ timeout: 15_000 });
+
+  // Capture storage state after initial load
+  const stateAfterLoad = await context.storageState();
+  const sessionCookie = stateAfterLoad.cookies.find(
     c => c.name.includes('session') || c.name.includes('token') || c.name.includes('auth')
   );
   expect(sessionCookie).toBeDefined();
@@ -39,14 +28,8 @@ test('login session persists across page navigation @critical @auth', async ({ p
   // Navigate back to homepage
   await page.goto('/');
 
-  // Assert session persists — user still logged in (auth indicator visible)
-  await expect(
-    page.getByRole('button', { name: /log out|sign out|account|profile/i }).or(
-      page.getByText(/welcome|account|log out/i)
-    ).or(
-      page.locator('[class*="avatar"], [class*="user"], [class*="profile"]').first()
-    )
-  ).toBeVisible({ timeout: 10_000 });
+  // Assert session persists — user still logged in (auth indicator still visible)
+  await expect(authIndicator).toBeVisible({ timeout: 10_000 });
 
   // Verify storage state still has session cookie
   const stateAfterNav = await context.storageState();
