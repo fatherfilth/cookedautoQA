@@ -3,7 +3,7 @@
 ## Milestones
 
 - ✅ **v1.0 MVP** - Phases 1-6 (shipped 2026-02-16)
-- 🚧 **v1.1 Auth Coverage** - Phases 7-8 (in progress)
+- ✅ **v1.1 Auth Coverage** - Phases 7-8 (shipped 2026-02-16)
 
 ## Phases
 
@@ -36,7 +36,7 @@
 
 </details>
 
-### 🚧 v1.1 Auth Coverage (In Progress)
+### ✅ v1.1 Auth Coverage (Shipped 2026-02-16)
 
 **Milestone Goal:** Enable authenticated test sessions via per-run registration, unlock all 8 auth-gated tests to achieve 17/17 passing tests with 0 skipped.
 
@@ -71,7 +71,7 @@ Plans:
 Plans:
 - [x] 08-01-PLAN.md — Rewrite auth tests to use storageState (login + session persistence)
 - [x] 08-02-PLAN.md — Remove conditional skips from game, crypto, and tipping tests
-- [ ] 08-03-PLAN.md — Fix auth.setup.ts checkbox selector strict mode violation (gap closure)
+- [x] 08-03-PLAN.md — Fix auth.setup.ts checkbox selector strict mode violation (gap closure)
 
 ## Progress
 
@@ -87,8 +87,8 @@ Phases execute in numeric order: 7 → 8
 | 5. CI/CD & Alerting | v1.0 | 3/3 | Complete | 2026-02-16 |
 | 6. Documentation & Polish | v1.0 | 1/1 | Complete | 2026-02-16 |
 | 7. Auth Foundation | v1.1 | 1/1 | Complete | 2026-02-16 |
-| 8. Test Enablement | v1.1 | 0/2 | Not started | - |
+| 8. Test Enablement | v1.1 | 3/3 | Complete | 2026-02-16 |
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-16 — Phase 8 planned*
+*Last updated: 2026-02-16 — Phase 8 complete, v1.1 Auth Coverage shipped*
