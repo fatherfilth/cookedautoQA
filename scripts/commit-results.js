@@ -9,7 +9,7 @@ import { execSync } from 'child_process';
 // Section 1: Constants
 // ============================================================================
 
-const SUMMARY_FILE = 'test-results/summary.json';
+const RESULTS_FILE = 'test-results/results.json';
 const RESULTS_DIR = 'results-history';
 
 // ============================================================================
@@ -40,30 +40,72 @@ function formatTimestamp(date) {
 }
 
 /**
- * Copy summary.json to results-history with timestamp
+ * Build a compact summary from Playwright's full results.json
+ * @param {Object} results - Parsed results.json
+ * @returns {Object} - Compact summary object
+ */
+function buildSummary(results) {
+  const stats = results.stats;
+  const total = stats.expected + stats.unexpected + stats.flaky + stats.skipped;
+
+  // Extract per-test outcomes from suites
+  const tests = [];
+  function walk(suites) {
+    for (const suite of suites) {
+      for (const spec of suite.specs || []) {
+        for (const test of spec.tests || []) {
+          tests.push({
+            title: spec.title,
+            file: suite.title,
+            tags: spec.tags || [],
+            status: test.status,
+            duration: test.results?.reduce((sum, r) => sum + r.duration, 0) || 0,
+            retries: (test.results?.length || 1) - 1,
+          });
+        }
+      }
+      if (suite.suites) walk(suite.suites);
+    }
+  }
+  walk(results.suites || []);
+
+  return {
+    timestamp: stats.startTime,
+    duration: stats.duration,
+    passed: stats.expected,
+    failed: stats.unexpected,
+    flaky: stats.flaky,
+    skipped: stats.skipped,
+    total,
+    tests,
+  };
+}
+
+/**
+ * Read results.json, build summary, and save to results-history with timestamp
  * @returns {Object|null} - Summary data or null if file doesn't exist
  */
 async function copySummaryToHistory() {
   try {
-    // Read summary file
-    const summaryData = await fs.readFile(SUMMARY_FILE, 'utf-8');
-    const summary = JSON.parse(summaryData);
+    const rawData = await fs.readFile(RESULTS_FILE, 'utf-8');
+    const results = JSON.parse(rawData);
+    const summary = buildSummary(results);
 
     // Create timestamped filename
-    const timestamp = formatTimestamp(new Date());
+    const timestamp = formatTimestamp(new Date(summary.timestamp));
     const targetPath = `${RESULTS_DIR}/${timestamp}.json`;
 
     // Ensure results-history directory exists
     await fs.mkdir(RESULTS_DIR, { recursive: true });
 
-    // Write timestamped copy
-    await fs.writeFile(targetPath, summaryData);
+    // Write compact summary
+    await fs.writeFile(targetPath, JSON.stringify(summary, null, 2));
     console.log(`Created ${targetPath}`);
 
     return summary;
   } catch (err) {
     if (err.code === 'ENOENT') {
-      console.warn(`WARNING: ${SUMMARY_FILE} not found. Test summary may not have been generated.`);
+      console.warn(`WARNING: ${RESULTS_FILE} not found. Tests may not have been run.`);
       console.log('Exiting gracefully.');
       return null;
     }
