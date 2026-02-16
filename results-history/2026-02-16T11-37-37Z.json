@@ -1,0 +1,228 @@
+{
+  "timestamp": "2026-02-16T11:37:37.973Z",
+  "duration": 89168.921,
+  "passed": 19,
+  "failed": 1,
+  "flaky": 0,
+  "skipped": 0,
+  "total": 20,
+  "tests": [
+    {
+      "title": "register and authenticate",
+      "file": "auth\\auth.setup.ts",
+      "tags": [],
+      "status": "expected",
+      "duration": 13437,
+      "retries": 0
+    },
+    {
+      "title": "authenticated session is active after storageState load @critical @auth",
+      "file": "auth\\login.spec.ts",
+      "tags": [
+        "critical",
+        "auth"
+      ],
+      "status": "expected",
+      "duration": 5124,
+      "retries": 0
+    },
+    {
+      "title": "registration flow completes step-by-step without creating account @critical @auth",
+      "file": "auth\\registration.spec.ts",
+      "tags": [
+        "critical",
+        "auth"
+      ],
+      "status": "expected",
+      "duration": 5398,
+      "retries": 0
+    },
+    {
+      "title": "authenticated session persists across page navigation @critical @auth",
+      "file": "auth\\session-persistence.spec.ts",
+      "tags": [
+        "critical",
+        "auth"
+      ],
+      "status": "expected",
+      "duration": 9429,
+      "retries": 0
+    },
+    {
+      "title": "All Bets tab shows betting entries @warning @betting",
+      "file": "betting\\betting-activity.spec.ts",
+      "tags": [
+        "warning",
+        "betting"
+      ],
+      "status": "expected",
+      "duration": 4847,
+      "retries": 0
+    },
+    {
+      "title": "High Rollers tab shows betting entries @warning @betting",
+      "file": "betting\\betting-activity.spec.ts",
+      "tags": [
+        "warning",
+        "betting"
+      ],
+      "status": "expected",
+      "duration": 5843,
+      "retries": 0
+    },
+    {
+      "title": "Swapped.com crypto buy iframe loads on cooked.com @critical @crypto",
+      "file": "Swapped.com Crypto Buy Flow",
+      "tags": [
+        "critical",
+        "crypto"
+      ],
+      "status": "unexpected",
+      "duration": 59490,
+      "retries": 2
+    },
+    {
+      "title": "crypto buy flow progresses through steps and stops before purchase @critical @crypto",
+      "file": "Swapped.com Crypto Buy Flow",
+      "tags": [
+        "critical",
+        "crypto"
+      ],
+      "status": "expected",
+      "duration": 5397,
+      "retries": 0
+    },
+    {
+      "title": "live dealer game launches successfully @critical @game",
+      "file": "game\\live-dealer-launch.spec.ts",
+      "tags": [
+        "critical",
+        "game"
+      ],
+      "status": "expected",
+      "duration": 6783,
+      "retries": 0
+    },
+    {
+      "title": "slot game launches successfully @critical @game",
+      "file": "game\\slot-launch.spec.ts",
+      "tags": [
+        "critical",
+        "game"
+      ],
+      "status": "expected",
+      "duration": 5203,
+      "retries": 0
+    },
+    {
+      "title": "table game launches successfully @critical @game",
+      "file": "game\\table-launch.spec.ts",
+      "tags": [
+        "critical",
+        "game"
+      ],
+      "status": "expected",
+      "duration": 3679,
+      "retries": 0
+    },
+    {
+      "title": "homepage loads successfully @critical @smoke",
+      "file": "smoke\\health-check.spec.ts",
+      "tags": [
+        "critical",
+        "smoke"
+      ],
+      "status": "expected",
+      "duration": 3500,
+      "retries": 0
+    },
+    {
+      "title": "homepage loads and hero/promo banner is visible @critical @smoke",
+      "file": "smoke\\homepage.spec.ts",
+      "tags": [
+        "critical",
+        "smoke"
+      ],
+      "status": "expected",
+      "duration": 3098,
+      "retries": 0
+    },
+    {
+      "title": "lobby page displays game categories and game grid @warning @smoke",
+      "file": "smoke\\lobby.spec.ts",
+      "tags": [
+        "warning",
+        "smoke"
+      ],
+      "status": "expected",
+      "duration": 3076,
+      "retries": 0
+    },
+    {
+      "title": "top navigation reaches at least 2 major sections @warning @smoke",
+      "file": "smoke\\navigation.spec.ts",
+      "tags": [
+        "warning",
+        "smoke"
+      ],
+      "status": "expected",
+      "duration": 6735,
+      "retries": 0
+    },
+    {
+      "title": "search returns results and user can open a game @warning @smoke",
+      "file": "smoke\\search.spec.ts",
+      "tags": [
+        "warning",
+        "smoke"
+      ],
+      "status": "expected",
+      "duration": 6019,
+      "retries": 0
+    },
+    {
+      "title": "chat WebSocket connection establishes successfully @critical @social",
+      "file": "social\\chat-connection.spec.ts",
+      "tags": [
+        "critical",
+        "social"
+      ],
+      "status": "expected",
+      "duration": 3927,
+      "retries": 0
+    },
+    {
+      "title": "chat messages are visible in the interface @critical @social",
+      "file": "social\\chat-messages.spec.ts",
+      "tags": [
+        "critical",
+        "social"
+      ],
+      "status": "expected",
+      "duration": 4227,
+      "retries": 0
+    },
+    {
+      "title": "\"Latest and Greatest\" promotional messages display @warning @social",
+      "file": "social\\promotions.spec.ts",
+      "tags": [
+        "warning",
+        "social"
+      ],
+      "status": "expected",
+      "duration": 3384,
+      "retries": 0
+    },
+    {
+      "title": "tipping flow works end-to-end (initiate → confirm → success state) @critical @social",
+      "file": "social\\tipping-flow.spec.ts",
+      "tags": [
+        "critical",
+        "social"
+      ],
+      "status": "expected",
+      "duration": 3756,
+      "retries": 0
+    }
+  ]
+}
