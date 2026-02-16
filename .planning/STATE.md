@@ -5,37 +5,38 @@
 See: .planning/PROJECT.md (updated 2026-02-16)
 
 **Core value:** Detect breakages in key user flows on cooked.com before real users hit them, with fast alerts and actionable failure artifacts.
-**Current focus:** Phase 10 - Betting Activity Tests (complete)
+**Current focus:** Phase 11 - Test Result History (complete) — All v1.2 phases shipped
 
 ## Current Position
 
-Phase: 10 of 11 (Betting Activity Tests)
+Phase: 11 of 11 (Test Result History)
 Plan: 1 of 1
 Status: Complete
-Last activity: 2026-02-16 — Completed 10-01-PLAN.md
+Last activity: 2026-02-16 — Completed 11-01-PLAN.md
 
-Progress: [██████████████████░░] 91% (10 phases complete out of 11 total)
+Progress: [████████████████████] 100% (11 phases complete out of 11 total)
 
 ## Performance Metrics
 
 **Overall:**
 - v1.0: 6 phases, 12 plans — shipped 2026-02-16
 - v1.1: 2 phases, 4 plans — shipped 2026-02-16
-- v1.2: 3 phases, 3/6 plans complete — in progress
-- Total: 11 phases, 19 plans complete
+- v1.2: 3 phases, 4 plans — complete 2026-02-16
+- Total: 11 phases, 20 plans complete
 
 **Velocity:**
 - v1.0 + v1.1: 16 plans in ~3 days (2026-02-15 to 2026-02-16)
-- v1.2: 3 plans in 136s avg (09-01: 87s, 09-02: 102s, 10-01: 119s)
+- v1.2: 4 plans in 132s avg (09-01: 87s, 09-02: 102s, 10-01: 119s, 11-01: 120s)
 - Fast iteration maintained
 
 **Recent Execution:**
 
 | Phase | Plan | Duration | Tasks | Files | Completed |
 |-------|------|----------|-------|-------|-----------|
-| 09    | 01   | 87s      | 1     | 2     | 2026-02-16 |
 | 09    | 02   | 102s     | 2     | 4     | 2026-02-16 |
 | 10    | 01   | 119s     | 2     | 1     | 2026-02-16 |
+| 11    | 01   | 120s     | 2     | 3     | 2026-02-16 |
+| Phase 11 P01 | 120 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -53,6 +54,10 @@ Recent decisions affecting current work:
 - **Phase 9-02**: Removed modal fallback from game tests - assert iframe-only for verified accounts
 - **Phase 10-01**: Broad CSS selectors for betting entry rows - DOM structure unknown, flexible pattern needed
 - **Phase 10-01**: scrollToBottom helper with Page type - TypeScript compliance for helper functions
+- **Phase 11-01**: Use ISO timestamp with hyphens for filenames - filesystem safety
+- **Phase 11-01**: Run notify-slack on always() to generate summary.json for all runs
+- [Phase 11-01]: Use ISO timestamp with hyphens for filenames (filesystem safety)
+- [Phase 11-01]: Run notify-slack on always() to generate summary.json for all runs
 
 ### Pending Todos
 
@@ -65,11 +70,11 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-16 — Phase 10 complete (1 plan)
-Stopped at: Completed 10-01-PLAN.md (Betting Activity Tests)
+Last session: 2026-02-16 — Phase 11 complete (1 plan)
+Stopped at: Completed 11-01-PLAN.md (Test Result History)
 Resume file: None
-Next: Phase 10 complete — proceed to Phase 11 (Lighthouse Audits) or Phase 12 (Screenshot Diffing)
+Next: All phases complete — v1.2 milestone shipped
 
 ---
 *State initialized: 2026-02-15*
-*Last updated: 2026-02-16T20:36:45Z — Completed Phase 10 Plan 01*
+*Last updated: 2026-02-16T20:38:03Z — Completed Phase 11 Plan 01*
