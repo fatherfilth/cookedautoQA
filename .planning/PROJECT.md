@@ -22,13 +22,14 @@ Detect breakages in key user flows on cooked.com before real users hit them, wit
 - ✓ Headless by default, headed mode available locally — v1.0
 - ✓ All secrets/config via environment variables — v1.0
 - ✓ Clear docs: README (setup, usage, adding tests) + RUNBOOK (alert triage) — v1.0
+- ✓ Per-run registration with disposable accounts for authenticated sessions — v1.1
+- ✓ Playwright setup project saves storageState for reuse across all tests — v1.1
+- ✓ All 8 auth-gated tests unlocked (game, crypto, tipping, login, session) — v1.1
+- ✓ 17/17 tests passing with 0 skipped in CI — v1.1
 
 ### Active
 
-- [ ] Per-run registration with `smoketest+{N}@totempowered.com` / `testtest123` for authenticated test sessions
-- [ ] Playwright setup project that registers and saves storageState for reuse across all tests
-- [ ] Unlock all 8 auth-gated tests: game launches (3), crypto (2), tipping (1), login (1), session persistence (1)
-- [ ] All 17 tests passing (0 skipped) in CI with real auth
+(None — next milestone not yet defined)
 
 ### Future
 
@@ -43,7 +44,7 @@ Detect breakages in key user flows on cooked.com before real users hit them, wit
 - Real money transactions — all flows stop before payment confirmation
 - Mobile app testing — web only
 - Performance/load testing — functional correctness only
-- Test user provisioning — ~~assumes test credentials exist~~ v1.1 adds per-run registration
+- Test user provisioning — v1.1 added per-run disposable registration (no manual provisioning needed)
 - AI self-healing tests — masks real issues, creates false confidence
 - Custom dashboard UI — use GitHub Actions UI + existing observability tools
 - Sub-minute monitoring — alert fatigue, unnecessary load on production
@@ -52,21 +53,19 @@ Detect breakages in key user flows on cooked.com before real users hit them, wit
 
 ## Context
 
-Shipped v1.0 with 1,284 LOC TypeScript across 86 files.
+Shipped v1.1 with TypeScript across 86+ files.
 Tech stack: Playwright, TypeScript (ESM), GitHub Actions, Node.js.
 Page Object Model with BasePage providing retry-enabled navigation and explicit waits.
 Severity-based alerting: CRITICAL (game launch, login, registration, crypto) vs WARNING (navigation, lobby, search, promotions).
 Consecutive failure threshold (2+) reduces noise from transient issues.
+Per-run registration with disposable `smoketest+{timestamp}@totempowered.com` accounts — storageState shared across all tests.
+17/17 tests passing, 0 skipped — full auth coverage achieved.
 
-**Post-v1.0 live site fixes (2026-02-16):**
-- Selectors tightened against live DOM — 9/17 tests passing, 8 skip without auth
+**Live site patterns (2026-02-16):**
 - Auth dialog opened via nav button click (not URL params)
 - Game URLs use `/games/all/{slug}` pattern
 - Chat uses mobile viewport with `BottomNavigationChat` component
-
-**Known items for v1.1:**
-- Wallet automation strategy for crypto flow needs validation (MetaMask vs WalletConnect)
-- Game provider iframe behavior with authenticated sessions unknown
+- Terms checkbox: custom `button[role=checkbox]#tos-checkbox` (not native input)
 
 ## Constraints
 
@@ -93,7 +92,10 @@ Consecutive failure threshold (2+) reduces noise from transient issues.
 | ALERT_THRESHOLD = 2 consecutive failures | Reduces noise while alerting quickly | ✓ Good — prevents single-flake alerts |
 | Full test suite on all CI triggers | Maximum coverage (not just @critical) | ⚠️ Revisit — may need tag-based selective execution if CI minutes exceed free tier |
 
-| Per-run registration with disposable emails | Avoids manual credential management, each run is self-contained | — Pending |
+| Per-run registration with disposable emails | Avoids manual credential management, each run is self-contained | ✓ Good — eliminates credential provisioning |
+| storageState for session reuse | Playwright convention, single registration shared across all tests | ✓ Good — efficient, no redundant logins |
+| ID selectors for custom components | Strict mode safe, precise targeting | ✓ Good — fixed checkbox strict mode violation |
+| Direct assertions over conditional skips | Auth-dependent elements should always be visible when authenticated | ✓ Good — catches real regressions instead of masking failures |
 
 ---
-*Last updated: 2026-02-16 after v1.1 milestone start*
+*Last updated: 2026-02-16 after v1.1 milestone*

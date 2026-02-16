@@ -5,61 +5,28 @@
 See: .planning/PROJECT.md (updated 2026-02-16)
 
 **Core value:** Detect breakages in key user flows on cooked.com before real users hit them, with fast alerts and actionable failure artifacts.
-**Current focus:** Phase 8 - Test Enablement
+**Current focus:** Planning next milestone
 
 ## Current Position
 
-Phase: 8 of 8 (Test Enablement)
-Plan: 3 of 3 complete
-Status: Complete
-Last activity: 2026-02-16 — Completed 08-03: Gap closure checkbox selector fix
+Milestone: v1.1 Auth Coverage — SHIPPED 2026-02-16
+Status: Between milestones
+Last activity: 2026-02-16 — v1.1 milestone archived
 
-Progress: [████████████████████] 100% (16 of 16 plans complete)
+Progress: [████████████████████] 100% (16 of 16 plans complete across v1.0 + v1.1)
 
 ## Performance Metrics
 
-**Velocity (v1.0):**
-- Total plans completed: 12
-- Average duration: 2.2 minutes
-- Total execution time: 0.5 hours
-
-**By Phase:**
-
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 01 - Foundation & Test Infrastructure | 2 | 5 min | 2.5 min |
-| 02 - Critical Path Tests | 3 | 7.4 min | 2.5 min |
-| 03 - Social & Live Features | 2 | 3.5 min | 1.8 min |
-| 04 - Crypto Integration | 1 | 2.2 min | 2.2 min |
-| 05 - CI/CD & Alerting | 3 | 5.3 min | 1.8 min |
-| 06 - Documentation & Polish | 1 | 3.3 min | 3.3 min |
-
-**v1.1 Status:**
-
-| Milestone | Phases | Plans | Status |
-|-----------|--------|-------|--------|
-| v1.0 MVP | 1-6 | 12/12 | Complete |
-| v1.1 Auth Coverage | 7-8 | 4/4 | Complete |
-| Phase 07-auth-foundation P01 | 105s | 2 tasks | 4 files |
-| Phase 08-test-enablement P01 | 124s | 2 tasks | 2 files |
-| Phase 08-test-enablement P02 | 155s | 2 tasks | 5 files |
-| Phase 08 P03 | 45 | 1 tasks | 1 files |
+**Overall:**
+- v1.0: 6 phases, 12 plans — shipped 2026-02-16
+- v1.1: 2 phases, 4 plans — shipped 2026-02-16
+- Total: 8 phases, 16 plans
 
 ## Accumulated Context
 
 ### Decisions
 
-Decisions are logged in PROJECT.md Key Decisions table.
-Recent decisions affecting current work:
-
-- v1.1: Per-run registration with disposable emails (`smoketest+{timestamp}@totempowered.com`) to avoid manual credential management
-- v1.0: Playwright storageState pattern chosen for session reuse (now implementing in v1.1)
-- v1.0: Stop-before-payment safety pattern applies to auth flow (no real email verification needed)
-- [Phase 07-01]: Setup project uses inline selectors (no RegistrationPage import) for self-contained execution
-- [Phase 07-01]: Disposable email pattern smoketest+{timestamp}@totempowered.com eliminates credential management
-- [Phase 07-01]: storageState saved to .auth/user.json (gitignored) following Playwright convention
-- [Phase 08-test-enablement]: Login test verifies both auth state and dialog UI structure for comprehensive coverage
-- [Phase 08-03]: Use #tos-checkbox ID selector to target visible button element, avoiding hidden input[type=checkbox]
+All decisions logged in PROJECT.md Key Decisions table.
 
 ### Pending Todos
 
@@ -67,19 +34,14 @@ None.
 
 ### Blockers/Concerns
 
-**Resolved (v1.1 complete):**
-- ~~Wallet automation strategy~~ — Swapped.com iframe approach working with auth
-- ~~Game provider iframe behavior~~ — Direct assertions now in place, will catch any issues
-- ~~Registration flow~~ — Auto-registration with disposable emails implemented in Phase 7
-
-**Current:** None - v1.1 Auth Coverage milestone complete
+None — between milestones.
 
 ## Session Continuity
 
-Last session: 2026-02-16 — Phase 8 complete
-Stopped at: Completed 08-test-enablement/08-03-PLAN.md (Phase 8 complete, v1.1 milestone achieved)
+Last session: 2026-02-16 — v1.1 milestone completed and archived
+Stopped at: Milestone completion
 Resume file: None
 
 ---
 *State initialized: 2026-02-15*
-*Last updated: 2026-02-16 — Phase 8 complete, v1.1 Auth Coverage milestone achieved*
+*Last updated: 2026-02-16 — v1.1 Auth Coverage milestone archived*

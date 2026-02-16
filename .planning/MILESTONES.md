@@ -20,3 +20,22 @@
 
 ---
 
+
+## v1.1 Auth Coverage (Shipped: 2026-02-16)
+
+**Phases completed:** 2 phases (7-8), 4 plans, 7 tasks
+**Files:** 11 code files modified
+**Timeline:** 1 day (2026-02-16)
+**Git range:** 1e3746d..07141a7
+
+**Delivered:** Authenticated test sessions via per-run disposable account registration, unlocking all 8 auth-gated tests for 17/17 passing tests with 0 skipped.
+
+**Key accomplishments:**
+1. Auto-registration setup project creates disposable `smoketest+{timestamp}` accounts per test run
+2. Playwright storageState pattern persists authenticated sessions across all 17 test specs
+3. Auth tests rewritten to verify storageState instead of manual login flows
+4. 75 lines of conditional skip logic removed from 6 auth-dependent tests (game, crypto, tipping)
+5. Checkbox selector strict mode violation fixed, unblocking registration flow
+
+---
+
