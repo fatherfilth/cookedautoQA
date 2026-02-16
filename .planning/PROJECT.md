@@ -25,11 +25,17 @@ Detect breakages in key user flows on cooked.com before real users hit them, wit
 
 ### Active
 
+- [ ] Per-run registration with `smoketest+{N}@totempowered.com` / `testtest123` for authenticated test sessions
+- [ ] Playwright setup project that registers and saves storageState for reuse across all tests
+- [ ] Unlock all 8 auth-gated tests: game launches (3), crypto (2), tipping (1), login (1), session persistence (1)
+- [ ] All 17 tests passing (0 skipped) in CI with real auth
+
+### Future
+
 - [ ] Email alerting via SMTP env vars
 - [ ] Alert deduplication — suppress repeated alerts for same failing test within time window
 - [ ] Game provider health matrix — aggregate launch success rates by provider
 - [ ] Response time metrics collection and trending
-- [ ] Tighten selectors after live site inspection (currently using broad fallback chains)
 
 ### Out of Scope
 
@@ -37,7 +43,7 @@ Detect breakages in key user flows on cooked.com before real users hit them, wit
 - Real money transactions — all flows stop before payment confirmation
 - Mobile app testing — web only
 - Performance/load testing — functional correctness only
-- Test user provisioning — assumes test credentials exist
+- Test user provisioning — ~~assumes test credentials exist~~ v1.1 adds per-run registration
 - AI self-healing tests — masks real issues, creates false confidence
 - Custom dashboard UI — use GitHub Actions UI + existing observability tools
 - Sub-minute monitoring — alert fatigue, unnecessary load on production
@@ -52,12 +58,15 @@ Page Object Model with BasePage providing retry-enabled navigation and explicit 
 Severity-based alerting: CRITICAL (game launch, login, registration, crypto) vs WARNING (navigation, lobby, search, promotions).
 Consecutive failure threshold (2+) reduces noise from transient issues.
 
-**Known items requiring live site inspection:**
-- Game provider iframe selectors use broad fallbacks (need provider-specific patterns)
-- Chat page path, WebSocket URL patterns, and message selectors need tightening
-- Tipping modal structure assumed from common patterns
-- Promotional content location needs verification
+**Post-v1.0 live site fixes (2026-02-16):**
+- Selectors tightened against live DOM — 9/17 tests passing, 8 skip without auth
+- Auth dialog opened via nav button click (not URL params)
+- Game URLs use `/games/all/{slug}` pattern
+- Chat uses mobile viewport with `BottomNavigationChat` component
+
+**Known items for v1.1:**
 - Wallet automation strategy for crypto flow needs validation (MetaMask vs WalletConnect)
+- Game provider iframe behavior with authenticated sessions unknown
 
 ## Constraints
 
@@ -84,5 +93,7 @@ Consecutive failure threshold (2+) reduces noise from transient issues.
 | ALERT_THRESHOLD = 2 consecutive failures | Reduces noise while alerting quickly | ✓ Good — prevents single-flake alerts |
 | Full test suite on all CI triggers | Maximum coverage (not just @critical) | ⚠️ Revisit — may need tag-based selective execution if CI minutes exceed free tier |
 
+| Per-run registration with disposable emails | Avoids manual credential management, each run is self-contained | — Pending |
+
 ---
-*Last updated: 2026-02-16 after v1.0 milestone*
+*Last updated: 2026-02-16 after v1.1 milestone start*

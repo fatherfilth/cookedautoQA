@@ -5,15 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-16)
 
 **Core value:** Detect breakages in key user flows on cooked.com before real users hit them, with fast alerts and actionable failure artifacts.
-**Current focus:** v1.0 shipped — planning next milestone
+**Current focus:** v1.1 — Real auth for full test coverage
 
 ## Current Position
 
-Milestone: v1.0 MVP — SHIPPED 2026-02-16
-Status: Milestone Complete
-Last activity: 2026-02-16 — Milestone v1.0 archived
+Milestone: v1.1 Auth Coverage
+Phase: Not started (defining requirements)
+Status: Defining requirements
+Last activity: 2026-02-16 — Milestone v1.1 started
 
-Progress: [██████████] 100% (v1.0)
+Progress: [░░░░░░░░░░] 0% (v1.1)
 
 ## Performance Metrics
 
@@ -46,17 +47,17 @@ None.
 
 ### Blockers/Concerns
 
-**Carried from v1.0 (for next milestone consideration):**
-- Selector tightening needed after live site inspection (game iframes, chat, tipping, promotions)
-- Wallet automation strategy for crypto flow needs validation
+**v1.1 concerns:**
+- Registration flow on live site needs DOM inspection (form fields, submit behavior, success indicators)
+- Authenticated session behavior for game iframes, crypto wallet, tipping unknown
 - GitHub Actions minutes may need monitoring with 30-min schedule
 
 ## Session Continuity
 
-Last session: 2026-02-16 (milestone completion)
-Stopped at: v1.0 milestone archived and tagged
+Last session: 2026-02-16 (milestone start)
+Stopped at: v1.1 requirements definition
 Resume file: None
 
 ---
 *State initialized: 2026-02-15*
-*Last updated: 2026-02-16 — v1.0 milestone complete*
+*Last updated: 2026-02-16 — v1.1 milestone started*
