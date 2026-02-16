@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '*/30 * * * *'  # Every 30 minutes (UTC)
   push:
-    branches: [main]
+    branches: [master]
   workflow_dispatch:  # Manual trigger from GitHub UI
 
 concurrency:
