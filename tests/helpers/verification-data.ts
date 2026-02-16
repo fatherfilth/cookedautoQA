@@ -13,11 +13,13 @@ export function getVerificationData() {
       month: '01',
       year: '1990',
     },
+    phone: '+35312345678',
     address: {
       line1: '123 Test Street',
-      city: 'London',
-      postcode: 'SW1A 1AA',
-      // Country: keep default (likely UK/GB pre-selected)
+      city: 'Dublin',
+      state: 'Leinster',
+      postcode: 'D01 F5P2',
+      country: 'IE',
     },
   };
 }

@@ -72,97 +72,53 @@ setup('register and authenticate', async ({ page }) => {
 
     await page.goto('/account/settings?account_tab=verification&verification_modal=details');
 
-    // Wait for verification form/modal to appear
-    const verificationForm = page.locator('div[role="dialog"]').or(
-      page.locator('form').filter({ hasText: /details|verification|name|date of birth/i })
+    // Wait for "Basic Information" dialog
+    const dialog = page.getByRole('dialog', { name: /basic information|set your details/i }).or(
+      page.locator('div[role="dialog"]').filter({ hasText: /date of birth/i })
     );
-    await verificationForm.waitFor({ state: 'visible', timeout: 15_000 });
+    await dialog.waitFor({ state: 'visible', timeout: 15_000 });
 
-    // Get fake identity data
     const data = getVerificationData();
 
-    // Fill first name
-    const firstNameField = page.getByLabel(/first name/i).or(
-      page.locator('input[name*="first" i], input[placeholder*="first" i]').first()
-    );
-    await firstNameField.fill(data.firstName);
+    // Fill text fields by their stable IDs
+    await dialog.locator('#First-Name').fill(data.firstName);
+    await dialog.locator('#Last-Name').fill(data.lastName);
 
-    // Fill last name
-    const lastNameField = page.getByLabel(/last name/i).or(
-      page.locator('input[name*="last" i], input[placeholder*="last" i]').first()
-    );
-    await lastNameField.fill(data.lastName);
+    // Date of birth: 3 unlabeled selects in order (Day, Month, Year)
+    const selects = dialog.locator('select');
+    await selects.nth(0).selectOption(data.dateOfBirth.day);
+    await selects.nth(1).selectOption(data.dateOfBirth.month);
+    await selects.nth(2).selectOption(data.dateOfBirth.year);
 
-    // Fill date of birth (try dropdowns first, fallback to text inputs)
-    const dayField = page.locator('select[name*="day" i]').or(
-      page.locator('input[name*="day" i], input[placeholder*="day" i]').first()
-    );
-    if (await dayField.count() > 0) {
-      const tagName = await dayField.evaluate((el) => el.tagName.toLowerCase());
-      if (tagName === 'select') {
-        await dayField.selectOption(data.dateOfBirth.day);
-      } else {
-        await dayField.fill(data.dateOfBirth.day);
-      }
-    }
+    // Phone number
+    await dialog.locator('#Phone-Number').fill(data.phone);
 
-    const monthField = page.locator('select[name*="month" i]').or(
-      page.locator('input[name*="month" i], input[placeholder*="month" i]').first()
-    );
-    if (await monthField.count() > 0) {
-      const tagName = await monthField.evaluate((el) => el.tagName.toLowerCase());
-      if (tagName === 'select') {
-        await monthField.selectOption(data.dateOfBirth.month);
-      } else {
-        await monthField.fill(data.dateOfBirth.month);
-      }
-    }
+    // Address — two #Address inputs exist: first is autocomplete trigger (placeholder
+    // "Start typing an address..."), second is the actual street address field (placeholder "Address").
+    // Use the second one to avoid triggering autocomplete that could close/change the form.
+    const addressInputs = dialog.locator('#Address');
+    await addressInputs.nth(1).fill(data.address.line1);
 
-    const yearField = page.locator('select[name*="year" i]').or(
-      page.locator('input[name*="year" i], input[placeholder*="year" i]').first()
-    );
-    if (await yearField.count() > 0) {
-      const tagName = await yearField.evaluate((el) => el.tagName.toLowerCase());
-      if (tagName === 'select') {
-        await yearField.selectOption(data.dateOfBirth.year);
-      } else {
-        await yearField.fill(data.dateOfBirth.year);
-      }
-    }
+    await dialog.locator('#City').fill(data.address.city);
+    await dialog.locator('#State-Province-Region').fill(data.address.state);
+    await dialog.locator('#Postcode').fill(data.address.postcode);
 
-    // Fill address line 1
-    const addressField = page.getByLabel(/address|street/i).first().or(
-      page.locator('input[name*="address" i], input[placeholder*="address" i]').first()
-    );
-    await addressField.fill(data.address.line1);
+    // Country select (4th select in the dialog)
+    await selects.nth(3).selectOption(data.address.country);
 
-    // Fill city
-    const cityField = page.getByLabel(/city|town/i).or(
-      page.locator('input[name*="city" i], input[placeholder*="city" i]').first()
-    );
-    await cityField.fill(data.address.city);
+    // Submit — button starts disabled, should enable once all fields are filled
+    const submitBtn = dialog.locator('button[type="submit"]');
+    await expect(submitBtn).toBeEnabled({ timeout: 5_000 });
+    await submitBtn.click();
 
-    // Fill postcode
-    const postcodeField = page.getByLabel(/postcode|postal|zip/i).or(
-      page.locator('input[name*="postcode" i], input[name*="postal" i], input[name*="zip" i]').first()
-    );
-    await postcodeField.fill(data.address.postcode);
-
-    // Submit the form
-    const submitButton = page.getByRole('button', { name: /submit|save|confirm|continue/i });
-    await submitButton.click();
-
-    // Wait for success indication (form closes, success message, or URL changes)
-    await Promise.race([
-      verificationForm.waitFor({ state: 'hidden', timeout: 15_000 }),
-      page.waitForURL('**/account**', { timeout: 15_000 }),
-      page.getByText(/success|verified|complete/i).waitFor({ state: 'visible', timeout: 15_000 }),
-    ]);
+    // Wait for the dialog to close (real success indicator)
+    await dialog.waitFor({ state: 'hidden', timeout: 15_000 });
 
     console.log('Auth setup: verification complete');
   } catch (error) {
-    console.warn('Auth setup: verification skipped -', error instanceof Error ? error.message : 'unknown error');
-    // Continue anyway — tests will see "Set your details" modal but can still run
+    // Screenshot on failure for debugging
+    await page.screenshot({ path: 'test-results/debug-verification-failure.png' });
+    console.warn('Auth setup: verification FAILED -', error instanceof Error ? error.message : 'unknown error');
   }
 
   // Save storageState for reuse in all tests
