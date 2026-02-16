@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-16)
 
 **Core value:** Detect breakages in key user flows on cooked.com before real users hit them, with fast alerts and actionable failure artifacts.
-**Current focus:** v1.1 — Real auth for full test coverage
+**Current focus:** Phase 7 - Auth Foundation
 
 ## Current Position
 
-Milestone: v1.1 Auth Coverage
-Phase: Not started (defining requirements)
-Status: Defining requirements
-Last activity: 2026-02-16 — Milestone v1.1 started
+Phase: 7 of 8 (Auth Foundation)
+Plan: Ready to plan
+Status: Not started
+Last activity: 2026-02-16 — v1.1 roadmap created
 
-Progress: [░░░░░░░░░░] 0% (v1.1)
+Progress: [████████████░░░░░░░░] 75% (12 of 16 plans complete, estimated total)
 
 ## Performance Metrics
 
@@ -34,12 +34,23 @@ Progress: [░░░░░░░░░░] 0% (v1.1)
 | 05 - CI/CD & Alerting | 3 | 5.3 min | 1.8 min |
 | 06 - Documentation & Polish | 1 | 3.3 min | 3.3 min |
 
+**v1.1 Status:**
+
+| Milestone | Phases | Plans | Status |
+|-----------|--------|-------|--------|
+| v1.0 MVP | 1-6 | 12/12 | Complete |
+| v1.1 Auth Coverage | 7-8 | 0/TBD | Not started |
+
 ## Accumulated Context
 
 ### Decisions
 
 Decisions are logged in PROJECT.md Key Decisions table.
-All v1.0 decisions documented with outcomes — see PROJECT.md.
+Recent decisions affecting current work:
+
+- v1.1: Per-run registration with disposable emails (`smoketest+{timestamp}@totempowered.com`) to avoid manual credential management
+- v1.0: Playwright storageState pattern chosen for session reuse (now implementing in v1.1)
+- v1.0: Stop-before-payment safety pattern applies to auth flow (no real email verification needed)
 
 ### Pending Todos
 
@@ -47,17 +58,17 @@ None.
 
 ### Blockers/Concerns
 
-**v1.1 concerns:**
+**Known unknowns for v1.1:**
+- Wallet automation strategy for crypto flow needs validation (MetaMask vs WalletConnect) — may affect CRYPTO-01, CRYPTO-02 test implementation
+- Game provider iframe behavior with authenticated sessions unknown — may require selector adjustments for GAME-01, GAME-02, GAME-03
 - Registration flow on live site needs DOM inspection (form fields, submit behavior, success indicators)
-- Authenticated session behavior for game iframes, crypto wallet, tipping unknown
-- GitHub Actions minutes may need monitoring with 30-min schedule
 
 ## Session Continuity
 
-Last session: 2026-02-16 (milestone start)
-Stopped at: v1.1 requirements definition
+Last session: 2026-02-16 — Roadmap creation
+Stopped at: v1.1 roadmap created, ready to plan Phase 7
 Resume file: None
 
 ---
 *State initialized: 2026-02-15*
-*Last updated: 2026-02-16 — v1.1 milestone started*
+*Last updated: 2026-02-16 — v1.1 roadmap created*

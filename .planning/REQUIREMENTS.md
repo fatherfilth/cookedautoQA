@@ -53,22 +53,22 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-05 | — | Pending |
-| AUTH-06 | — | Pending |
-| AUTH-07 | — | Pending |
-| AUTH-08 | — | Pending |
-| GAME-01 | — | Pending |
-| GAME-02 | — | Pending |
-| GAME-03 | — | Pending |
-| CRYPTO-01 | — | Pending |
-| CRYPTO-02 | — | Pending |
-| SOCIAL-01 | — | Pending |
+| AUTH-05 | Phase 7 | Pending |
+| AUTH-06 | Phase 7 | Pending |
+| AUTH-07 | Phase 8 | Pending |
+| AUTH-08 | Phase 8 | Pending |
+| GAME-01 | Phase 8 | Pending |
+| GAME-02 | Phase 8 | Pending |
+| GAME-03 | Phase 8 | Pending |
+| CRYPTO-01 | Phase 8 | Pending |
+| CRYPTO-02 | Phase 8 | Pending |
+| SOCIAL-01 | Phase 8 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 10 total
-- Mapped to phases: 0
-- Unmapped: 10
+- Mapped to phases: 10
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-16*
-*Last updated: 2026-02-16 after initial definition*
+*Last updated: 2026-02-16 — v1.1 roadmap created, 100% coverage validated*
