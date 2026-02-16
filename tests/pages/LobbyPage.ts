@@ -2,34 +2,28 @@ import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage.js';
 
 export class LobbyPage extends BasePage {
-  protected readonly path = '/';
+  protected readonly path = '/games/lobby';
 
-  // Locators — update selectors after live site inspection
-  readonly searchInput: Locator;
+  // Locators — search removed (mobile-only BottomNavigationSearch, not available on desktop)
   readonly gameCategories: Locator;
   readonly gameGrid: Locator;
   readonly firstGameTile: Locator;
 
   constructor(page: Page) {
     super(page);
-    this.searchInput = page.getByRole('searchbox').or(
-      page.getByTestId('game-search')
+    // Categories: site uses links (not tabs) for game categories
+    this.gameCategories = page.locator('nav a[href*="/games/"]').or(
+      page.getByRole('navigation').filter({ hasText: /slots|live|table/i })
     );
-    this.gameCategories = page.getByRole('tablist').or(
-      page.getByTestId('game-categories')
+    // Game grid: CSS grid with aspect-3/4 game cards
+    this.gameGrid = page.locator('.grid').filter({ has: page.locator('[class*="aspect"]') }).first().or(
+      page.locator('[class*="game-grid"], [class*="gameGrid"]').first()
     );
-    this.gameGrid = page.getByTestId('game-grid').or(
-      page.getByRole('list', { name: /games/i })
-    );
-    this.firstGameTile = this.gameGrid.locator('> *').first();
-  }
-
-  async searchForGame(query: string): Promise<void> {
-    await this.searchInput.fill(query);
+    this.firstGameTile = this.gameGrid.locator('a, [class*="aspect"]').first();
   }
 
   async selectCategory(categoryName: string): Promise<void> {
-    await this.page.getByRole('tab', { name: categoryName }).click();
+    await this.page.getByRole('link', { name: new RegExp(categoryName, 'i') }).click();
   }
 
   async clickFirstGame(): Promise<void> {
@@ -39,6 +33,6 @@ export class LobbyPage extends BasePage {
   override async waitForReady(): Promise<void> {
     await super.waitForReady();
     // Wait for game grid to have at least one item
-    await this.gameGrid.waitFor({ state: 'visible' });
+    await this.gameGrid.waitFor({ state: 'visible', timeout: 15_000 });
   }
 }

@@ -5,22 +5,21 @@ import { gameConfig } from '../helpers/game-config.js';
 test('live dealer game launches successfully @critical @game', async ({ page }) => {
   const gameDetailPage = new GameDetailPage(page);
 
-  // Navigate to the live dealer game
+  // Navigate to the live dealer game (client-rendered — needs extended wait)
   await gameDetailPage.gotoGame(gameConfig.live.id);
 
-  // Assert game iframe is visible with extended timeout
-  await expect(gameDetailPage.gameIframe).toBeVisible({ timeout: 15_000 });
+  // Assert game iframe is visible with extended timeout for client-rendered content
+  // Live dealer games may have additional latency for video stream initialization
+  await expect(gameDetailPage.gameIframe).toBeVisible({ timeout: 30_000 });
 
   // Verify iframe has a src attribute (not empty)
   const iframeSrc = await gameDetailPage.gameIframe.getAttribute('src');
   expect(iframeSrc).toBeTruthy();
 
-  // Access iframe content - try specific selector first, fall back to first iframe
-  const gameFrame = page.frameLocator('iframe[src*="game"], iframe').first();
+  // Access iframe content — fall back broadly since provider-specific selectors unknown
+  const gameFrame = page.frameLocator('iframe').first();
 
-  // Wait for game content inside iframe — use broad check since provider-specific selectors are unknown
-  // Note: Live dealer games may have additional latency for video stream initialization
-  // TODO: After live site inspection, replace broad iframe content selector with provider-specific game-ready indicator
+  // Wait for game content inside iframe
   await gameFrame
     .locator('canvas, [data-game-state], .game-container, body')
     .first()

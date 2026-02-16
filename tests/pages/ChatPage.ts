@@ -1,22 +1,18 @@
 import { Page, Locator } from '@playwright/test';
-import { BasePage } from './BasePage.js';
 
 /**
- * Chat page object for WebSocket-based chat interface.
- * Includes locators for chat messages and tipping flow.
- * All locators use .or() chains — update selectors after live site inspection.
- *
- * TODO: Verify actual chat path (/chat or /live-chat) against live site
- * TODO: Update chat container structure after inspecting production DOM
- * TODO: Update message item selectors after inspecting live chat messages
- * TODO: Update tip button location and tipping modal structure after live site inspection
+ * ChatPage — Chat is a drawer/sidebar, not a dedicated page.
+ * Opened via a chat toggle button in the bottom nav or sidebar.
+ * Does NOT extend BasePage since there's no path to navigate to.
  */
-export class ChatPage extends BasePage {
-  // TODO: Verify path — could be /chat or /live-chat
-  protected readonly path = '/chat';
+export class ChatPage {
+  readonly page: Page;
 
-  // Chat container and message locators
-  readonly chatContainer: Locator;
+  // Drawer open trigger
+  readonly chatToggleButton: Locator;
+
+  // Chat drawer container and message locators
+  readonly chatDrawer: Locator;
   readonly chatMessages: Locator;
   readonly chatInput: Locator;
 
@@ -31,111 +27,101 @@ export class ChatPage extends BasePage {
   readonly cancelTipButton: Locator;
 
   constructor(page: Page) {
-    super(page);
+    this.page = page;
 
-    // Chat container — often uses role="log" for accessibility
-    this.chatContainer = page.getByTestId('chat-container').or(
-      page.getByRole('log').or(
-        page.locator('[class*="chat"], [id*="chat"]').first()
-      )
+    // Chat toggle: look for chat button in nav/sidebar
+    this.chatToggleButton = page.getByRole('button', { name: /chat/i }).or(
+      page.locator('[class*="chat"] button, button[class*="chat"], [aria-label*="chat" i]').first()
+    );
+
+    // Chat drawer/sidebar container
+    this.chatDrawer = page.locator('[class*="ChatDrawer"], [class*="chat-drawer"], [class*="chatDrawer"]').first().or(
+      page.getByRole('complementary').filter({ hasText: /chat/i })
+    ).or(
+      page.locator('[class*="drawer"], [class*="sidebar"]').filter({ has: page.locator('[class*="chat" i]') }).first()
     );
 
     // Individual chat message elements
-    this.chatMessages = this.chatContainer.getByRole('listitem').or(
-      this.chatContainer.locator('[data-testid="chat-message"], [class*="message"]')
+    this.chatMessages = this.chatDrawer.locator('[class*="message"]').or(
+      this.chatDrawer.getByRole('listitem')
     );
 
     // Message input field
     this.chatInput = page.getByRole('textbox', { name: /message|chat/i }).or(
-      page.getByTestId('chat-input')
+      this.chatDrawer.locator('input, textarea').first()
     );
 
     // Tip button in chat interface
     this.tipButton = page.getByRole('button', { name: /tip|gift|send tip/i }).or(
-      page.getByTestId('tip-button')
+      this.chatDrawer.locator('button').filter({ hasText: /tip/i }).first()
     );
 
     // Tip modal/dialog
     this.tipModal = page.getByRole('dialog', { name: /tip/i }).or(
-      page.getByTestId('tip-modal')
+      page.locator('[class*="tip-modal"], [class*="tipModal"]').first()
     );
 
     // Tip amount buttons (e.g., $5, $10, $20)
     this.tipAmountOptions = this.tipModal.getByRole('button', { name: /\$\d+/ }).or(
-      this.tipModal.getByTestId('tip-amount')
+      this.tipModal.locator('button').filter({ hasText: /\$\d+/ })
     );
 
     // Currently selected tip amount
     this.selectedTipAmount = this.tipModal.locator('[aria-selected="true"], [data-selected], .selected').or(
-      this.tipModal.getByTestId('selected-amount')
+      this.tipModal.locator('[class*="active"], [class*="selected"]').first()
     );
 
     // Confirm button in tip modal
     this.confirmTipButton = this.tipModal.getByRole('button', { name: /confirm/i }).or(
-      this.tipModal.getByTestId('confirm-tip')
+      this.tipModal.locator('button').filter({ hasText: /confirm/i }).first()
     );
 
-    // Second confirmation dialog (alertdialog role for confirmation step)
+    // Second confirmation dialog
     this.tipConfirmationDialog = page.getByRole('alertdialog').or(
-      page.getByTestId('tip-confirmation')
+      page.getByRole('dialog').filter({ hasText: /confirm/i })
     );
 
-    // Final submit button (DO NOT CLICK in tests to avoid real transactions)
+    // Final submit button (DO NOT CLICK in tests)
     this.submitTipButton = this.tipConfirmationDialog.getByRole('button', { name: /submit|send|confirm/i }).or(
-      this.tipConfirmationDialog.getByTestId('submit-tip')
+      this.tipConfirmationDialog.locator('button').filter({ hasText: /submit|send|confirm/i }).first()
     );
 
     // Cancel button in tip dialogs
     this.cancelTipButton = this.tipModal.getByRole('button', { name: /cancel|close/i }).or(
-      this.tipModal.getByTestId('cancel-tip')
+      this.tipModal.locator('button').filter({ hasText: /cancel|close/i }).first()
     );
   }
 
-  /**
-   * Send a chat message (for future use).
-   * Not needed for SOCIAL-01/02 but included for completeness.
-   */
+  /** Open the chat drawer by clicking the toggle button */
+  async openDrawer(): Promise<void> {
+    await this.chatToggleButton.click();
+    await this.chatDrawer.waitFor({ state: 'visible', timeout: 10_000 });
+  }
+
+  /** Navigate to homepage and open chat drawer */
+  async open(): Promise<void> {
+    await this.page.goto('/');
+    await this.openDrawer();
+  }
+
   async sendMessage(text: string): Promise<void> {
     await this.chatInput.fill(text);
     await this.chatInput.press('Enter');
   }
 
-  /**
-   * Click the tip button to open tipping flow.
-   */
   async clickTipButton(): Promise<void> {
     await this.tipButton.click();
   }
 
-  /**
-   * Select a tip amount by clicking the button matching the dollar amount.
-   * @param amount - Dollar amount as string (e.g., '5' for $5)
-   */
   async selectTipAmount(amount: string): Promise<void> {
     await this.tipAmountOptions.filter({ hasText: `$${amount}` }).click();
   }
 
-  /**
-   * Click the confirm button in the tip modal.
-   */
   async clickConfirmTip(): Promise<void> {
     await this.confirmTipButton.click();
   }
 
-  /**
-   * Click the cancel button in tip dialogs.
-   */
   async clickCancelTip(): Promise<void> {
     await this.cancelTipButton.click();
-  }
-
-  /**
-   * Override waitForReady to wait for chat container to be visible.
-   * Chat must be loaded before tests can interact with messages.
-   */
-  override async waitForReady(): Promise<void> {
-    await super.waitForReady();
-    // Wait for chat container with 10s timeout
-    await this.chatContainer.waitFor({ state: 'visible', timeout: 10_000 });
   }
 }

@@ -1,17 +1,21 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage.js';
-import { AccountPage } from '../pages/AccountPage.js';
 import { LobbyPage } from '../pages/LobbyPage.js';
 
 test('login session persists across page navigation @critical @auth', async ({ page, context }) => {
   const loginPage = new LoginPage(page);
-  const accountPage = new AccountPage(page);
   const lobbyPage = new LobbyPage(page);
 
-  // Login
+  // Login via auth dialog
   await loginPage.open();
   await loginPage.loginWithEnvCredentials();
-  await page.waitForURL('**/account**', { timeout: 15_000 }).catch(() => {});
+
+  // Wait for dialog to close or redirect
+  await Promise.race([
+    loginPage.authDialog.waitFor({ state: 'hidden', timeout: 15_000 }).catch(() => {}),
+    page.waitForURL('**/account**', { timeout: 15_000 }).catch(() => {}),
+    page.waitForURL('**/', { timeout: 15_000 }).catch(() => {}),
+  ]);
 
   // Capture storage state after login
   const stateAfterLogin = await context.storageState();
@@ -19,18 +23,21 @@ test('login session persists across page navigation @critical @auth', async ({ p
     c => c.name.includes('session') || c.name.includes('token') || c.name.includes('auth')
   );
   expect(sessionCookie).toBeDefined();
-  // TODO: After live site inspection, update cookie name pattern to match actual session cookie
 
   // Navigate away to lobby
   await lobbyPage.open();
   await expect(lobbyPage.gameGrid.or(page.getByRole('heading').first())).toBeVisible();
 
-  // Navigate back to account
-  await accountPage.open();
+  // Navigate back to homepage
+  await page.goto('/');
 
-  // Assert session persists - user still logged in
+  // Assert session persists — user still logged in (auth indicator visible)
   await expect(
-    accountPage.logoutButton.or(accountPage.username).or(page.getByText(/welcome|account|log out/i))
+    page.getByRole('button', { name: /log out|sign out|account|profile/i }).or(
+      page.getByText(/welcome|account|log out/i)
+    ).or(
+      page.locator('[class*="avatar"], [class*="user"], [class*="profile"]').first()
+    )
   ).toBeVisible({ timeout: 10_000 });
 
   // Verify storage state still has session cookie

@@ -2,12 +2,12 @@ import { test, expect } from '@playwright/test';
 import { ChatPage } from '../pages/ChatPage.js';
 
 test('chat messages are visible in the interface @critical @social', async ({ page }) => {
-  // Create ChatPage and open (includes waitForReady which waits for chat container)
+  // Navigate and open chat drawer
   const chatPage = new ChatPage(page);
   await chatPage.open();
 
-  // Wait for chat container to be visible
-  await expect(chatPage.chatContainer).toBeVisible({ timeout: 10_000 });
+  // Wait for chat drawer to be visible
+  await expect(chatPage.chatDrawer).toBeVisible({ timeout: 10_000 });
 
   // Wait for at least one chat message to appear
   // Generous timeout for real-time apps (messages may take time to load)

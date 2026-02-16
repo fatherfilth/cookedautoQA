@@ -6,14 +6,14 @@ import { ChatPage } from '../pages/ChatPage.js';
  * Validates tipping flow reaches final pre-transaction state without executing real transaction.
  * Per PROJECT.md: "No real purchases or destructive actions"
  *
- * Flow: Navigate → Initiate tip → Select amount → Confirm → Verify submit ready (STOP)
+ * Flow: Open drawer → Initiate tip → Select amount → Confirm → Verify submit ready (STOP)
  */
 test('tipping flow works end-to-end (initiate → confirm → success state) @critical @social', async ({ page }) => {
   const chatPage = new ChatPage(page);
 
-  await test.step('Navigate to chat page', async () => {
+  await test.step('Navigate and open chat drawer', async () => {
     await chatPage.open();
-    await expect(chatPage.chatContainer).toBeVisible({ timeout: 10_000 });
+    await expect(chatPage.chatDrawer).toBeVisible({ timeout: 10_000 });
   });
 
   await test.step('Initiate tip', async () => {
@@ -24,7 +24,6 @@ test('tipping flow works end-to-end (initiate → confirm → success state) @cr
   await test.step('Select tip amount', async () => {
     await chatPage.selectTipAmount('5');
     await expect(chatPage.selectedTipAmount).toBeVisible();
-    // TODO: Verify selected amount text after inspecting actual tip amount UI pattern
   });
 
   await test.step('Confirm tip (opens confirmation)', async () => {
@@ -41,6 +40,5 @@ test('tipping flow works end-to-end (initiate → confirm → success state) @cr
 
     // STOP HERE: Do NOT click submit. Test validates flow structure without executing real transaction.
     // Per PROJECT.md: "No real purchases or destructive actions"
-    // This confirms the flow reached its final pre-transaction state.
   });
 });

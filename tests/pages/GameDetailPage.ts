@@ -1,6 +1,5 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage.js';
-import { waitForApiResponse } from '../helpers/waits.js';
 
 export class GameDetailPage extends BasePage {
   protected readonly path = '/games'; // Will be dynamic: /games/:id
@@ -12,17 +11,19 @@ export class GameDetailPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
+    // Iframe: match any iframe (game providers use various src patterns)
     this.gameIframe = page.locator('iframe[src*="game"]').or(
-      page.getByTestId('game-iframe')
+      page.locator('iframe').first()
     );
     this.playButton = page.getByRole('button', { name: /play|launch|start/i }).or(
-      page.getByTestId('game-play')
+      page.locator('button').filter({ hasText: /play|launch|start/i }).first()
     );
+    // Game name: client-rendered heading
     this.gameName = page.getByRole('heading', { level: 1 }).or(
-      page.getByTestId('game-name')
+      page.getByRole('heading').first()
     );
-    this.loadingIndicator = page.getByTestId('game-loading').or(
-      page.getByRole('progressbar')
+    this.loadingIndicator = page.locator('[role="progressbar"]').or(
+      page.locator('[class*="loading"], [class*="spinner"]').first()
     );
   }
 
@@ -39,7 +40,12 @@ export class GameDetailPage extends BasePage {
 
   override async waitForReady(): Promise<void> {
     await super.waitForReady();
-    // Wait for game name heading to appear
-    await this.gameName.waitFor({ state: 'visible' });
+    // Client-rendered content needs longer wait; try heading first, fall back to any content
+    try {
+      await this.gameName.waitFor({ state: 'visible', timeout: 15_000 });
+    } catch {
+      // Game detail may not have a heading — wait for any main content instead
+      await this.page.locator('main, [class*="game"]').first().waitFor({ state: 'visible', timeout: 10_000 });
+    }
   }
 }

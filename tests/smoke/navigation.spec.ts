@@ -9,26 +9,32 @@ test('top navigation reaches at least 2 major sections @warning @smoke', async (
   // Assert navigation is visible
   await expect(navigation).toBeVisible();
 
-  // Navigate to first destination (lobby/games/casino/slots)
-  const firstLink = navigation.getByRole('link', { name: /lobby|games|casino|slots/i }).first();
+  // Navigate to first destination — target game category links by href
+  const firstLink = navigation.locator('a[href*="/games/"]').first().or(
+    navigation.getByRole('link', { name: /slots|casino|games|lobby/i }).first()
+  );
   await firstLink.click();
 
-  // Wait for URL change
-  await page.waitForURL('**/*');
+  // Wait for navigation to a /games/ URL
+  await page.waitForURL('**/games/**', { timeout: 10_000 });
 
-  // Assert content loaded (heading visible) - validates content, not just URL
-  await expect(page.getByRole('heading').first()).toBeVisible();
+  // Assert content loaded (heading or game grid visible)
+  await expect(
+    page.getByRole('heading').first().or(page.locator('.grid').first())
+  ).toBeVisible({ timeout: 10_000 });
 
   // Navigate back to homepage
   await page.goto('/');
 
-  // Navigate to second destination (promotions/rewards/vip/about)
-  const secondLink = navigation.getByRole('link', { name: /promotions|rewards|vip|about/i }).first();
+  // Navigate to second destination — promotions or other section
+  const secondLink = navigation.locator('a[href*="/promotions"]').first().or(
+    navigation.getByRole('link', { name: /promotions|rewards|vip|about/i }).first()
+  );
   await secondLink.click();
 
   // Wait for URL change
   await page.waitForURL('**/*');
 
-  // Assert content loaded (heading visible) - validates content, not just URL
-  await expect(page.getByRole('heading').first()).toBeVisible();
+  // Assert content loaded (heading visible)
+  await expect(page.getByRole('heading').first()).toBeVisible({ timeout: 10_000 });
 });

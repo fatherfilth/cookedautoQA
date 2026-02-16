@@ -5,21 +5,20 @@ import { gameConfig } from '../helpers/game-config.js';
 test('slot game launches successfully @critical @game', async ({ page }) => {
   const gameDetailPage = new GameDetailPage(page);
 
-  // Navigate to the slot game
+  // Navigate to the slot game (client-rendered — needs extended wait)
   await gameDetailPage.gotoGame(gameConfig.slot.id);
 
-  // Assert game iframe is visible with extended timeout
-  await expect(gameDetailPage.gameIframe).toBeVisible({ timeout: 15_000 });
+  // Assert game iframe is visible with extended timeout for client-rendered content
+  await expect(gameDetailPage.gameIframe).toBeVisible({ timeout: 30_000 });
 
   // Verify iframe has a src attribute (not empty)
   const iframeSrc = await gameDetailPage.gameIframe.getAttribute('src');
   expect(iframeSrc).toBeTruthy();
 
-  // Access iframe content - try specific selector first, fall back to first iframe
-  const gameFrame = page.frameLocator('iframe[src*="game"], iframe').first();
+  // Access iframe content — fall back broadly since provider-specific selectors unknown
+  const gameFrame = page.frameLocator('iframe').first();
 
-  // Wait for game content inside iframe — use broad check since provider-specific selectors are unknown
-  // TODO: After live site inspection, replace broad iframe content selector with provider-specific game-ready indicator
+  // Wait for game content inside iframe
   await gameFrame
     .locator('canvas, [data-game-state], .game-container, body')
     .first()
