@@ -54,7 +54,7 @@
 
 **Milestone Goal:** Complete account verification in auth setup, add betting activity tests, and commit test result history to git.
 
-#### Phase 9: Account Verification
+#### Phase 9: Account Verification ✅
 **Goal**: Auth setup completes details verification, enabling game iframe tests
 **Depends on**: Phase 8 (authenticated sessions)
 **Requirements**: VERIFY-01, VERIFY-02
@@ -63,11 +63,12 @@
   2. Verification form completes successfully without manual intervention
   3. Game launch tests assert actual game iframe presence (not just "Set your details" modal)
   4. All game tests pass with iframe validation after verification completes
-**Plans**: 2 plans
+**Plans**: 2 plans (complete)
+**Verified**: 2026-02-16 — 7/7 must-haves passed
 
 Plans:
-- [ ] 09-01-PLAN.md — Add verification form completion to auth setup project
-- [ ] 09-02-PLAN.md — Update game tests to assert iframe-only (remove modal workaround)
+- [x] 09-01-PLAN.md — Add verification form completion to auth setup project
+- [x] 09-02-PLAN.md — Update game tests to assert iframe-only (remove modal workaround)
 
 #### Phase 10: Betting Activity Tests
 **Goal**: Betting activity component validated in All Bets and High Rollers tabs
@@ -108,10 +109,10 @@ Plans:
 | 6. Documentation & Polish | v1.0 | 1/1 | Complete | 2026-02-16 |
 | 7. Auth Foundation | v1.1 | 1/1 | Complete | 2026-02-16 |
 | 8. Test Enablement | v1.1 | 3/3 | Complete | 2026-02-16 |
-| 9. Account Verification | v1.2 | 0/2 | Planned | - |
+| 9. Account Verification | v1.2 | 2/2 | Complete | 2026-02-16 |
 | 10. Betting Activity Tests | v1.2 | 0/TBD | Not started | - |
 | 11. Test Result History | v1.2 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-16 — Phase 9 planned (2 plans, 2 waves)*
+*Last updated: 2026-02-16 — Phase 9 complete (2/2 plans, verified)*
