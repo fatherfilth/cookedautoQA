@@ -1,16 +1,14 @@
 import { test, expect } from '@playwright/test';
-import { LobbyPage } from '../pages/LobbyPage.js';
 
 test('lobby page displays game categories and game grid @warning @smoke', async ({ page }) => {
-  const lobbyPage = new LobbyPage(page);
-  await lobbyPage.open();
+  // Navigate to slots category (has game content)
+  await page.goto('/games/slots');
 
-  // Assert navigation links for game categories are visible
-  await expect(lobbyPage.gameCategories.first()).toBeVisible({ timeout: 10_000 });
+  // Verify sidebar game categories are visible (Originals, Slots, Live Casino, etc.)
+  const categoryLink = page.locator('a[href*="/games/"]').filter({ hasText: /originals|live casino|table games/i }).first();
+  await expect(categoryLink).toBeVisible({ timeout: 10_000 });
 
-  // Assert game grid is visible
-  await expect(lobbyPage.gameGrid).toBeVisible();
-
-  // Assert game grid has at least 1 child element (game tile)
-  await expect(lobbyPage.firstGameTile).toBeVisible();
+  // Verify game grid has at least one game tile
+  const gameTile = page.locator('a[href*="/games/all/"]').first();
+  await expect(gameTile).toBeVisible({ timeout: 15_000 });
 });

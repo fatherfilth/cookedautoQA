@@ -1,9 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { LobbyPage } from '../pages/LobbyPage.js';
 
 test('authenticated session persists across page navigation @critical @auth', async ({ page }) => {
-  const lobbyPage = new LobbyPage(page);
-
   // Navigate to homepage - storageState will be loaded automatically by Playwright
   await page.goto('/');
 
@@ -11,9 +8,9 @@ test('authenticated session persists across page navigation @critical @auth', as
   const authIndicator = page.getByRole('button', { name: /wallet/i }).first();
   await expect(authIndicator).toBeVisible({ timeout: 15_000 });
 
-  // Navigate away to lobby
-  await lobbyPage.open();
-  await expect(page.getByRole('heading', { name: /games/i }).first()).toBeVisible();
+  // Navigate away to slots page
+  await page.goto('/games/slots');
+  await expect(page.locator('a[href*="/games/all/"]').first()).toBeVisible({ timeout: 10_000 });
 
   // Navigate back to homepage
   await page.goto('/');

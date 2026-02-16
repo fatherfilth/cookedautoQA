@@ -1,6 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { RegistrationPage } from '../pages/RegistrationPage.js';
 
+// Registration test needs unauthenticated state — Register button is hidden when logged in
+test.use({ storageState: { cookies: [], origins: [] } });
+
 test('registration flow completes step-by-step without creating account @critical @auth', async ({ page }) => {
   const registrationPage = new RegistrationPage(page);
 
@@ -17,7 +20,7 @@ test('registration flow completes step-by-step without creating account @critica
   await registrationPage.fillForm({
     email: testEmail,
     password: 'SecureTestPass123!',
-    username: 'test-monitor',
+    username: `t${Date.now()}`,
   });
 
   // Verify email field accepted input
