@@ -93,10 +93,10 @@ Plans:
   2. Results are browsable in git history (timestamped commits or files)
   3. Commit logic runs in CI without manual intervention
   4. Git history shows progression of test results over time
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 11-01: TBD
+- [ ] 11-01-PLAN.md — Commit test result summaries to repo with timestamped files and CI automation
 
 ## Progress
 
@@ -112,7 +112,7 @@ Plans:
 | 8. Test Enablement | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 9. Account Verification | v1.2 | 2/2 | Complete | 2026-02-16 |
 | 10. Betting Activity Tests | v1.2 | 1/1 | Complete | 2026-02-16 |
-| 11. Test Result History | v1.2 | 0/TBD | Not started | - |
+| 11. Test Result History | v1.2 | 0/1 | Not started | - |
 
 ---
 *Roadmap created: 2026-02-15*
