@@ -9,8 +9,8 @@
  * IMPORTANT: Tests follow stop-before-purchase pattern per PROJECT.md.
  * Buy button is verified visible and enabled but NEVER clicked.
  *
- * NOTE: The wallet tab (/?wallet_tab=buy-crypto) likely requires authentication.
- * Tests are conditionally skipped if the wallet dialog doesn't appear (no login).
+ * NOTE: The wallet tab (/?wallet_tab=buy-crypto) requires authentication.
+ * Tests expect authenticated session from storageState and will fail if dialog doesn't appear.
  */
 
 import { test, expect } from '@playwright/test';
@@ -34,23 +34,11 @@ test.describe('Swapped.com Crypto Buy Flow', () => {
 
     // Step 1: Navigate to crypto buy page (wallet tab URL)
     await test.step('Navigate to crypto buy page', async () => {
-      try {
-        await cryptoPage.open();
-      } catch {
-        // Wallet tab likely requires login — skip gracefully
-        test.skip(true, 'Crypto buy page requires authentication — wallet_tab=buy-crypto not accessible without login');
-        return;
-      }
+      await cryptoPage.open();
     });
 
     // Step 2: Verify iframe element exists with correct source
     await test.step('Verify iframe element exists with correct source', async () => {
-      const iframeVisible = await cryptoPage.swappedIframe.isVisible().catch(() => false);
-      if (!iframeVisible) {
-        test.skip(true, 'Swapped.com iframe not visible — wallet dialog may require login');
-        return;
-      }
-
       await expect(cryptoPage.swappedIframe).toBeVisible();
 
       // Get iframe src attribute and verify it contains expected pattern
@@ -89,20 +77,8 @@ test.describe('Swapped.com Crypto Buy Flow', () => {
 
     // Step 1: Navigate to crypto buy page
     await test.step('Navigate to crypto buy page', async () => {
-      try {
-        await cryptoPage.open();
-      } catch {
-        test.skip(true, 'Crypto buy page requires authentication — wallet_tab=buy-crypto not accessible without login');
-        return;
-      }
+      await cryptoPage.open();
     });
-
-    // Check if iframe is actually visible (requires login)
-    const iframeVisible = await cryptoPage.swappedIframe.isVisible().catch(() => false);
-    if (!iframeVisible) {
-      test.skip(true, 'Swapped.com iframe not visible — wallet dialog may require login');
-      return;
-    }
 
     // Step 2: Enter purchase amount
     await test.step('Enter purchase amount', async () => {

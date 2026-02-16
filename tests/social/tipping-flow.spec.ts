@@ -20,12 +20,6 @@ test('tipping flow works end-to-end (initiate → confirm → success state) @cr
   });
 
   await test.step('Initiate tip', async () => {
-    // Tipping requires authentication — skip if tip button not available
-    const tipVisible = await chatPage.tipButton.isVisible().catch(() => false);
-    if (!tipVisible) {
-      test.skip(true, 'Tip button not visible — tipping likely requires authentication');
-      return;
-    }
     await chatPage.clickTipButton();
     await expect(chatPage.tipModal).toBeVisible({ timeout: 5_000 });
   });
