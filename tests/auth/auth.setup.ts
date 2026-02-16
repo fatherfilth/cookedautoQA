@@ -30,18 +30,21 @@ setup('register and authenticate', async ({ page }) => {
   const passwordField = authDialog.locator('input[type="password"]').first();
   await passwordField.fill(password);
 
-  // Username field (if visible)
+  // Username field (if visible) — unique per attempt, max 16 chars
   const usernameField = authDialog.getByRole('textbox', { name: /username|display name/i });
   if (await usernameField.count() > 0) {
-    await usernameField.fill('smoketest');
+    await usernameField.fill(`s${Date.now()}`);
   }
 
-  // Terms checkbox (if visible)
-  const termsCheckbox = authDialog.locator('#tos-checkbox').or(
-    authDialog.locator('button[role="checkbox"]').first()
-  );
-  if (await termsCheckbox.count() > 0) {
-    await termsCheckbox.check();
+  // Terms checkbox — click the label text which reliably toggles the custom checkbox
+  const termsLabel = authDialog.getByText(/I confirm that I am at least/i);
+  if (await termsLabel.count() > 0) {
+    await termsLabel.click();
+  } else {
+    const termsCheckbox = authDialog.locator('#tos-checkbox');
+    if (await termsCheckbox.count() > 0) {
+      await termsCheckbox.click();
+    }
   }
 
   // Click submit button
@@ -57,10 +60,8 @@ setup('register and authenticate', async ({ page }) => {
     page.waitForURL('**/', { timeout: 30_000 }),
   ]);
 
-  // Verify authenticated state - at least one auth indicator should be visible
-  const authIndicator = page.getByRole('button', { name: /log out|sign out|account|profile/i })
-    .or(page.getByText(/welcome|account|profile/i))
-    .or(page.locator('[class*="avatar"], [class*="user"], [class*="profile"]').first());
+  // Verify authenticated state — wallet button in nav indicates logged in
+  const authIndicator = page.getByRole('button', { name: /wallet/i }).first();
 
   await expect(authIndicator).toBeVisible({ timeout: 15_000 });
 
