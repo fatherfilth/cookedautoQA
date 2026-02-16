@@ -11,27 +11,12 @@ test('table game launches successfully @critical @game', async ({ page }) => {
   // Verify we navigated to the correct game URL
   expect(page.url()).toContain(gameConfig.table.id);
 
-  // Game pages may require login to show iframe
+  // Game iframe should always be visible with authenticated session
   const gameIframe = gameDetailPage.gameIframe;
-
-  // Wait for either game iframe or page content to settle
-  await Promise.race([
-    gameIframe.waitFor({ state: 'visible', timeout: 15_000 }).catch(() => {}),
-    page.waitForTimeout(15_000),
-  ]);
-
-  const iframeVisible = await gameIframe.isVisible().catch(() => false);
-  if (!iframeVisible) {
-    test.skip(true, 'Game iframe requires authentication — table game not playable without login');
-    return;
-  }
+  await expect(gameIframe).toBeVisible({ timeout: 30_000 });
 
   // Verify iframe has a src attribute (not empty)
   const iframeSrc = await gameIframe.getAttribute('src');
-  if (!iframeSrc) {
-    test.skip(true, 'Game iframe has no src — likely requires authentication to load game');
-    return;
-  }
   expect(iframeSrc).toBeTruthy();
 
   // Access iframe content — fall back broadly since provider-specific selectors unknown
