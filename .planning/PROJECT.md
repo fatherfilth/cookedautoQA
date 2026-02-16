@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A synthetic monitoring system that runs automated Playwright tests against cooked.com (a full-suite online casino) on a 30-minute schedule via GitHub Actions. Validates critical user journeys — lobby browsing, game launching, registration, login, chat, tipping, and the Swapped.com crypto buy flow — and alerts the team via Slack when something breaks, with severity-based logic and consecutive failure thresholds to reduce noise.
+A synthetic monitoring system that runs automated Playwright tests against cooked.com (a full-suite online casino) on a 30-minute schedule via GitHub Actions. Validates critical user journeys — lobby browsing, game launching, registration, login, chat, tipping, crypto buy flow, and betting activity — with full account verification, Slack alerting, and git-tracked test result history.
 
 ## Core Value
 
@@ -26,17 +26,15 @@ Detect breakages in key user flows on cooked.com before real users hit them, wit
 - ✓ Playwright setup project saves storageState for reuse across all tests — v1.1
 - ✓ All 8 auth-gated tests unlocked (game, crypto, tipping, login, session) — v1.1
 - ✓ 17/17 tests passing with 0 skipped in CI — v1.1
+- ✓ Auth setup completes details verification form (name, DOB, address) after registration — v1.2
+- ✓ Game launch tests assert actual game iframe (not modal fallback) for verified accounts — v1.2
+- ✓ Betting activity tests for All Bets and High Rollers tabs — v1.2
+- ✓ Test result summaries committed to git after each CI run for permanent history — v1.2
+- ✓ 20/20 tests passing with 0 skipped in CI — v1.2
 
 ### Active
 
-## Current Milestone: v1.2 Verification & Observability
-
-**Goal:** Complete account verification in auth setup, add betting activity tests, and commit test result history to git.
-
-**Target features:**
-- Details verification form completion (name, DOB, address) during auth setup — unblocks game iframes
-- Betting activity component tests (All Bets / High Rollers entries visible)
-- JSON test result reports committed to repo after each run for git-tracked history
+(No active milestone — planning next)
 
 ### Future
 
@@ -60,22 +58,23 @@ Detect breakages in key user flows on cooked.com before real users hit them, wit
 
 ## Context
 
-Shipped v1.1 with TypeScript across 86+ files.
+Shipped v1.2 with TypeScript across 90+ files.
 Tech stack: Playwright, TypeScript (ESM), GitHub Actions, Node.js.
 Page Object Model with BasePage providing retry-enabled navigation and explicit waits.
-Severity-based alerting: CRITICAL (game launch, login, registration, crypto) vs WARNING (navigation, lobby, search, promotions).
+Severity-based alerting: CRITICAL (game launch, login, registration, crypto) vs WARNING (navigation, lobby, search, promotions, betting).
 Consecutive failure threshold (2+) reduces noise from transient issues.
 Per-run registration with disposable `smoketest+{timestamp}@totempowered.com` accounts — storageState shared across all tests.
-18/18 tests passing, 0 skipped — full auth coverage achieved.
-Game launch tests accept "Set your details" modal as valid state (pending details verification).
+Auth setup completes registration + details verification form before saving storageState.
+20/20 tests passing, 0 skipped — full auth + verification coverage achieved.
+Game launch tests assert real iframe presence (modal fallback removed after verification).
 Wallet button (`getByRole('button', { name: /wallet/i })`) is the reliable auth indicator.
+Test result summaries committed to `results-history/` after every CI run for git-tracked history.
 
 **Live site patterns (2026-02-16):**
 - Auth dialog opened via nav button click (not URL params)
 - Game URLs use `/games/all/{slug}` pattern
 - Chat uses mobile viewport with `BottomNavigationChat` component
 - Terms checkbox: custom `button[role=checkbox]#tos-checkbox` (not native input)
-- "Set your details" modal on game pages for unverified accounts (Fun Play/Real Play or Set your details button)
 - Verification form at `/account/settings?account_tab=verification&verification_modal=details` (name, DOB, address)
 - Betting activity table at bottom of pages with "All Bets" and "High Rollers" tabs
 
@@ -109,8 +108,13 @@ Wallet button (`getByRole('button', { name: /wallet/i })`) is the reliable auth 
 | ID selectors for custom components | Strict mode safe, precise targeting | ✓ Good — fixed checkbox strict mode violation |
 | Direct assertions over conditional skips | Auth-dependent elements should always be visible when authenticated | ✓ Good — catches real regressions instead of masking failures |
 
-| Fake data for verification form | Test accounts are disposable — real identity not needed | — Pending |
-| Accept game modal as valid state | New accounts hit "Set your details" — both modal and iframe prove page works | ✓ Good — 18/18 passing |
+| Fake data for verification form | Test accounts are disposable — real identity not needed | ✓ Good — verification completes reliably with hardcoded data |
+| Accept game modal as valid state | New accounts hit "Set your details" — both modal and iframe prove page works | ✓ Good (superseded: modal fallback removed in v1.2 after verification added) |
+| Remove modal fallback from game tests | Verification now complete — assert iframe-only for stronger regression detection | ✓ Good — catches verification regressions immediately |
+| Broad CSS selectors for betting rows | DOM structure unknown — flexible pattern needed | ✓ Good — tests pass against live site |
+| ISO timestamps with hyphens for filenames | Filesystem safety (Windows/Unix compatible), human-readable, sortable | ✓ Good — clean results-history/ directory |
+| Run notify-slack on always() | Ensures summary.json generated on both pass and fail for complete history | ✓ Good — enables result commits on every run |
+| Graceful exit 0 on commit-results failures | Prevents result commits from breaking CI pipeline on edge cases | ✓ Good — CI resilience maintained |
 
 ---
-*Last updated: 2026-02-16 after v1.2 milestone started*
+*Last updated: 2026-02-16 after v1.2 milestone*

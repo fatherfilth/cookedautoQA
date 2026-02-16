@@ -39,3 +39,21 @@
 
 ---
 
+
+## v1.2 Verification & Observability (Shipped: 2026-02-16)
+
+**Phases completed:** 3 phases (9-11), 4 plans, 7 tasks
+**Files:** 24 changed (+2,273 / -41)
+**Timeline:** 1 day (2026-02-16)
+**Git range:** 156f7c9..33f9a7a
+
+**Delivered:** Account verification in auth setup, betting activity monitoring tests, and automated git-tracked test result history — completing the observability layer for the synthetic monitoring system.
+
+**Key accomplishments:**
+1. Auth setup completes details verification form (name, DOB, address) after registration, enabling real game iframe assertions
+2. Game launch tests assert actual iframe presence — removed modal fallback, catching verification regressions
+3. Betting activity tests validate All Bets and High Rollers tabs with scroll-to-bottom pattern (20/20 tests)
+4. Automated CI commits of timestamped test result summaries to results-history/ for permanent git-tracked history
+
+---
+
