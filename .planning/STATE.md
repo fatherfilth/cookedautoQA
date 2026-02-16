@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-16)
 ## Current Position
 
 Phase: 8 of 8 (Test Enablement)
-Plan: 1 of 2 complete
-Status: In progress
-Last activity: 2026-02-16 — Completed 08-01: Auth test enablement with storageState
+Plan: 2 of 2 complete
+Status: Complete
+Last activity: 2026-02-16 — Completed 08-02: Remove conditional test skips
 
-Progress: [██████████████░░░░░░] 87% (14 of 16 plans complete, estimated total)
+Progress: [████████████████████] 100% (15 of 15 plans complete)
 
 ## Performance Metrics
 
@@ -39,9 +39,10 @@ Progress: [██████████████░░░░░░] 87% (14
 | Milestone | Phases | Plans | Status |
 |-----------|--------|-------|--------|
 | v1.0 MVP | 1-6 | 12/12 | Complete |
-| v1.1 Auth Coverage | 7-8 | 2/4 | In progress |
+| v1.1 Auth Coverage | 7-8 | 3/3 | Complete |
 | Phase 07-auth-foundation P01 | 105s | 2 tasks | 4 files |
 | Phase 08-test-enablement P01 | 124s | 2 tasks | 2 files |
+| Phase 08-test-enablement P02 | 155s | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -64,17 +65,19 @@ None.
 
 ### Blockers/Concerns
 
-**Known unknowns for v1.1:**
-- Wallet automation strategy for crypto flow needs validation (MetaMask vs WalletConnect) — may affect CRYPTO-01, CRYPTO-02 test implementation
-- Game provider iframe behavior with authenticated sessions unknown — may require selector adjustments for GAME-01, GAME-02, GAME-03
-- Registration flow on live site needs DOM inspection (form fields, submit behavior, success indicators)
+**Resolved (v1.1 complete):**
+- ~~Wallet automation strategy~~ — Swapped.com iframe approach working with auth
+- ~~Game provider iframe behavior~~ — Direct assertions now in place, will catch any issues
+- ~~Registration flow~~ — Auto-registration with disposable emails implemented in Phase 7
+
+**Current:** None - v1.1 Auth Coverage milestone complete
 
 ## Session Continuity
 
-Last session: 2026-02-16 — Phase 8 plan 01 execution
-Stopped at: Completed 08-test-enablement/08-01-PLAN.md
+Last session: 2026-02-16 — Phase 8 complete
+Stopped at: Completed 08-test-enablement/08-02-PLAN.md (Phase 8 complete)
 Resume file: None
 
 ---
 *State initialized: 2026-02-15*
-*Last updated: 2026-02-16 — Phase 8 Plan 01 complete (auth test enablement)*
+*Last updated: 2026-02-16 — Phase 8 complete, v1.1 Auth Coverage milestone achieved*
