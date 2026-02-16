@@ -66,10 +66,11 @@ Plans:
   4. Crypto buy iframe loads under authenticated session (Swapped.com widget appears)
   5. Crypto buy flow progresses through wallet selection step under authenticated session
   6. Tipping flow passes (tip button visible after authenticated session established)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] TBD
+- [ ] 08-01-PLAN.md — Rewrite auth tests to use storageState (login + session persistence)
+- [ ] 08-02-PLAN.md — Remove conditional skips from game, crypto, and tipping tests
 
 ## Progress
 
@@ -85,8 +86,8 @@ Phases execute in numeric order: 7 → 8
 | 5. CI/CD & Alerting | v1.0 | 3/3 | Complete | 2026-02-16 |
 | 6. Documentation & Polish | v1.0 | 1/1 | Complete | 2026-02-16 |
 | 7. Auth Foundation | v1.1 | 1/1 | Complete | 2026-02-16 |
-| 8. Test Enablement | v1.1 | 0/TBD | Not started | - |
+| 8. Test Enablement | v1.1 | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-16 — Phase 7 complete*
+*Last updated: 2026-02-16 — Phase 8 planned*
