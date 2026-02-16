@@ -29,7 +29,14 @@ Detect breakages in key user flows on cooked.com before real users hit them, wit
 
 ### Active
 
-(None — next milestone not yet defined)
+## Current Milestone: v1.2 Verification & Observability
+
+**Goal:** Complete account verification in auth setup, add betting activity tests, and commit test result history to git.
+
+**Target features:**
+- Details verification form completion (name, DOB, address) during auth setup — unblocks game iframes
+- Betting activity component tests (All Bets / High Rollers entries visible)
+- JSON test result reports committed to repo after each run for git-tracked history
 
 ### Future
 
@@ -59,13 +66,18 @@ Page Object Model with BasePage providing retry-enabled navigation and explicit 
 Severity-based alerting: CRITICAL (game launch, login, registration, crypto) vs WARNING (navigation, lobby, search, promotions).
 Consecutive failure threshold (2+) reduces noise from transient issues.
 Per-run registration with disposable `smoketest+{timestamp}@totempowered.com` accounts — storageState shared across all tests.
-17/17 tests passing, 0 skipped — full auth coverage achieved.
+18/18 tests passing, 0 skipped — full auth coverage achieved.
+Game launch tests accept "Set your details" modal as valid state (pending details verification).
+Wallet button (`getByRole('button', { name: /wallet/i })`) is the reliable auth indicator.
 
 **Live site patterns (2026-02-16):**
 - Auth dialog opened via nav button click (not URL params)
 - Game URLs use `/games/all/{slug}` pattern
 - Chat uses mobile viewport with `BottomNavigationChat` component
 - Terms checkbox: custom `button[role=checkbox]#tos-checkbox` (not native input)
+- "Set your details" modal on game pages for unverified accounts (Fun Play/Real Play or Set your details button)
+- Verification form at `/account/settings?account_tab=verification&verification_modal=details` (name, DOB, address)
+- Betting activity table at bottom of pages with "All Bets" and "High Rollers" tabs
 
 ## Constraints
 
@@ -97,5 +109,8 @@ Per-run registration with disposable `smoketest+{timestamp}@totempowered.com` ac
 | ID selectors for custom components | Strict mode safe, precise targeting | ✓ Good — fixed checkbox strict mode violation |
 | Direct assertions over conditional skips | Auth-dependent elements should always be visible when authenticated | ✓ Good — catches real regressions instead of masking failures |
 
+| Fake data for verification form | Test accounts are disposable — real identity not needed | — Pending |
+| Accept game modal as valid state | New accounts hit "Set your details" — both modal and iframe prove page works | ✓ Good — 18/18 passing |
+
 ---
-*Last updated: 2026-02-16 after v1.1 milestone*
+*Last updated: 2026-02-16 after v1.2 milestone started*
