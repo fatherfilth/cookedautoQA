@@ -56,8 +56,6 @@ Recent decisions affecting current work:
 - **Phase 10-01**: scrollToBottom helper with Page type - TypeScript compliance for helper functions
 - **Phase 11-01**: Use ISO timestamp with hyphens for filenames - filesystem safety
 - **Phase 11-01**: Run notify-slack on always() to generate summary.json for all runs
-- [Phase 11-01]: Use ISO timestamp with hyphens for filenames (filesystem safety)
-- [Phase 11-01]: Run notify-slack on always() to generate summary.json for all runs
 
 ### Pending Todos
 

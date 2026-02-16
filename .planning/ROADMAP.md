@@ -4,7 +4,7 @@
 
 - ✅ **v1.0 MVP** - Phases 1-6 (shipped 2026-02-16)
 - ✅ **v1.1 Auth Coverage** - Phases 7-8 (shipped 2026-02-16)
-- 🚧 **v1.2 Verification & Observability** - Phases 9-11 (in progress)
+- ✅ **v1.2 Verification & Observability** - Phases 9-11 (shipped 2026-02-16)
 
 ## Phases
 
@@ -50,7 +50,8 @@
 
 </details>
 
-### 🚧 v1.2 Verification & Observability (In Progress)
+<details>
+<summary>✅ v1.2 Verification & Observability (Phases 9-11) - SHIPPED 2026-02-16</summary>
 
 **Milestone Goal:** Complete account verification in auth setup, add betting activity tests, and commit test result history to git.
 
@@ -84,7 +85,7 @@ Plans:
 Plans:
 - [x] 10-01-PLAN.md — Betting activity tests for All Bets and High Rollers tabs
 
-#### Phase 11: Test Result History
+#### Phase 11: Test Result History ✅
 **Goal**: Every CI run commits test results to git for browsable history
 **Depends on**: Nothing (independent infrastructure work)
 **Requirements**: LOG-01, LOG-02
@@ -93,10 +94,13 @@ Plans:
   2. Results are browsable in git history (timestamped commits or files)
   3. Commit logic runs in CI without manual intervention
   4. Git history shows progression of test results over time
-**Plans**: 1 plan
+**Plans**: 1 plan (complete)
+**Verified**: 2026-02-16 — 4/4 must-haves passed
 
 Plans:
-- [ ] 11-01-PLAN.md — Commit test result summaries to repo with timestamped files and CI automation
+- [x] 11-01-PLAN.md — Commit test result summaries to repo with timestamped files and CI automation
+
+</details>
 
 ## Progress
 
@@ -112,8 +116,8 @@ Plans:
 | 8. Test Enablement | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 9. Account Verification | v1.2 | 2/2 | Complete | 2026-02-16 |
 | 10. Betting Activity Tests | v1.2 | 1/1 | Complete | 2026-02-16 |
-| 11. Test Result History | v1.2 | 0/1 | Not started | - |
+| 11. Test Result History | v1.2 | 1/1 | Complete | 2026-02-16 |
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-16 — Phase 10 complete (1/1 plans, verified)*
+*Last updated: 2026-02-16 — Phase 11 complete, v1.2 milestone shipped*
