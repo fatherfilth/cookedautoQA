@@ -32,9 +32,19 @@ export default defineConfig({
   timeout: 60_000,
 
   projects: [
+    // Auth setup — runs first, registers fresh account, saves storageState
+    {
+      name: 'setup',
+      testMatch: /auth\.setup\.ts/,
+    },
+    // Main test suite — depends on setup, uses saved auth state
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: '.auth/user.json',
+      },
+      dependencies: ['setup'],
     },
   ],
 });
