@@ -37,8 +37,8 @@ setup('register and authenticate', async ({ page }) => {
   }
 
   // Terms checkbox (if visible)
-  const termsCheckbox = authDialog.getByRole('checkbox', { name: /terms|agree/i }).or(
-    authDialog.locator('input[type="checkbox"]').first()
+  const termsCheckbox = authDialog.locator('#tos-checkbox').or(
+    authDialog.locator('button[role="checkbox"]').first()
   );
   if (await termsCheckbox.count() > 0) {
     await termsCheckbox.check();
