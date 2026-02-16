@@ -2,12 +2,13 @@ import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage.js';
 
 /**
- * LoginPage — auth is a dialog triggered by ?auth=register URL param,
- * not a dedicated /login page.
+ * LoginPage — auth is triggered by clicking the Login button in the nav bar,
+ * which opens a dialog overlay.
  */
 export class LoginPage extends BasePage {
-  protected readonly path = '/?auth=register';
+  protected readonly path = '/';
 
+  readonly loginButton: Locator;
   readonly authDialog: Locator;
   readonly emailInput: Locator;
   readonly passwordInput: Locator;
@@ -16,22 +17,30 @@ export class LoginPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    // Auth dialog/modal container
-    this.authDialog = page.getByRole('dialog').or(
-      page.locator('[class*="modal"], [class*="dialog"], [class*="auth"]').first()
+    // Login button in the top nav bar
+    this.loginButton = page.getByRole('button', { name: 'Login' });
+    // Auth dialog/modal container — use div[role="dialog"] to avoid strict mode
+    // violation (site has both <aside class="z-dialog"> and <div role="dialog">)
+    this.authDialog = page.locator('div[role="dialog"]').first();
+    // Scope form inputs to dialog to avoid matching nav elements
+    this.emailInput = this.authDialog.getByRole('textbox', { name: /email/i }).or(
+      this.authDialog.locator('input[type="email"], input[name="email"]').first()
     );
-    this.emailInput = page.getByRole('textbox', { name: /email/i }).or(
-      page.locator('input[type="email"], input[name="email"]').first()
+    // Use first() to avoid strict mode if multiple password fields exist
+    this.passwordInput = this.authDialog.locator('input[type="password"]').first();
+    this.submitButton = this.authDialog.getByRole('button', { name: /sign in|log in|submit|continue/i }).or(
+      this.authDialog.locator('button[type="submit"]').first()
     );
-    this.passwordInput = page.getByLabel(/password/i).or(
-      page.locator('input[type="password"]').first()
+    this.errorMessage = this.authDialog.getByRole('alert').or(
+      this.authDialog.locator('[class*="error"], [class*="alert"]').first()
     );
-    this.submitButton = page.getByRole('button', { name: /sign in|log in|login|submit|continue/i }).or(
-      page.locator('button[type="submit"]').first()
-    );
-    this.errorMessage = page.getByRole('alert').or(
-      page.locator('[class*="error"], [class*="alert"]').first()
-    );
+  }
+
+  /** Open auth dialog by navigating to homepage and clicking Login button */
+  override async open(): Promise<void> {
+    await this.page.goto(this.path);
+    await this.loginButton.click();
+    await this.waitForReady();
   }
 
   async login(email: string, password: string): Promise<void> {
@@ -52,8 +61,7 @@ export class LoginPage extends BasePage {
   }
 
   override async waitForReady(): Promise<void> {
-    await super.waitForReady();
-    // Wait for auth dialog to appear after URL param triggers it
+    // Wait for auth dialog to appear after clicking Login button
     await this.authDialog.waitFor({ state: 'visible', timeout: 10_000 });
   }
 }

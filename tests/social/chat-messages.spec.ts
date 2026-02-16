@@ -2,6 +2,9 @@ import { test, expect } from '@playwright/test';
 import { ChatPage } from '../pages/ChatPage.js';
 
 test('chat messages are visible in the interface @critical @social', async ({ page }) => {
+  // Set mobile viewport where chat button is in bottom nav
+  await page.setViewportSize({ width: 390, height: 844 });
+
   // Navigate and open chat drawer
   const chatPage = new ChatPage(page);
   await chatPage.open();

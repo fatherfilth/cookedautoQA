@@ -29,7 +29,7 @@ export class GameDetailPage extends BasePage {
 
   /** Navigate to a specific game by slug or ID */
   async gotoGame(gameIdOrSlug: string): Promise<void> {
-    await this.page.goto(`/games/${gameIdOrSlug}`);
+    await this.page.goto(`/games/all/${gameIdOrSlug}`);
     await this.waitForReady();
   }
 
@@ -40,12 +40,13 @@ export class GameDetailPage extends BasePage {
 
   override async waitForReady(): Promise<void> {
     await super.waitForReady();
-    // Client-rendered content needs longer wait; try heading first, fall back to any content
+    // Client-rendered content needs longer wait
+    // Game detail pages may require login — handle login prompt, play button, or game content
     try {
       await this.gameName.waitFor({ state: 'visible', timeout: 15_000 });
     } catch {
-      // Game detail may not have a heading — wait for any main content instead
-      await this.page.locator('main, [class*="game"]').first().waitFor({ state: 'visible', timeout: 10_000 });
+      // Game detail may show a login prompt, play button, or iframe instead of heading
+      await this.page.locator('main, [class*="game"], iframe, button, [role="dialog"]').first().waitFor({ state: 'visible', timeout: 10_000 });
     }
   }
 }

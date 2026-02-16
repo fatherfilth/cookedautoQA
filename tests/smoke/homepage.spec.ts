@@ -6,18 +6,19 @@ test('homepage loads and hero/promo banner is visible @critical @smoke', async (
   // Verify the page loaded with a non-empty title
   await expect(page).toHaveTitle(/.+/);
 
-  // Hero is a PromoBannerItem component — look for promo banner area by text/class
-  const hero = page.locator('[class*="PromoBanner"], [class*="promo-banner"], [class*="promoBanner"]').first().or(
-    page.locator('[class*="hero"], [class*="banner"]').first()
-  ).or(
-    page.getByText(/welcome to cooked/i)
-  ).or(
+  // Homepage content is inside complementary role with game categories and links
+  // Look for the game content area with heading or game links
+  const content = page.getByRole('complementary').first().or(
     page.locator('main').first()
   );
 
-  // Assert hero/promo banner is visible
-  await expect(hero).toBeVisible({ timeout: 10_000 });
+  // Assert content area is visible
+  await expect(content).toBeVisible({ timeout: 10_000 });
 
-  // Assert hero has content (not empty)
-  await expect(hero).not.toBeEmpty();
+  // Assert content has game links (not empty)
+  await expect(content).not.toBeEmpty();
+
+  // Verify at least one game link is visible (confirms content rendered)
+  const gameLink = content.locator('a[href*="/games/all/"]').first();
+  await expect(gameLink).toBeVisible({ timeout: 10_000 });
 });

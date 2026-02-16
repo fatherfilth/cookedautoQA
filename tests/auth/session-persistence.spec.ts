@@ -3,12 +3,20 @@ import { LoginPage } from '../pages/LoginPage.js';
 import { LobbyPage } from '../pages/LobbyPage.js';
 
 test('login session persists across page navigation @critical @auth', async ({ page, context }) => {
+  // Skip if no test credentials are available
+  const email = process.env.TEST_USER_EMAIL;
+  const password = process.env.TEST_USER_PASSWORD;
+  if (!email || !password) {
+    test.skip(true, 'TEST_USER_EMAIL and TEST_USER_PASSWORD must be set — skipping session persistence test');
+    return;
+  }
+
   const loginPage = new LoginPage(page);
   const lobbyPage = new LobbyPage(page);
 
   // Login via auth dialog
   await loginPage.open();
-  await loginPage.loginWithEnvCredentials();
+  await loginPage.login(email, password);
 
   // Wait for dialog to close or redirect
   await Promise.race([

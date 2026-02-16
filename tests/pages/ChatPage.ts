@@ -2,13 +2,16 @@ import { Page, Locator } from '@playwright/test';
 
 /**
  * ChatPage — Chat is a drawer/sidebar, not a dedicated page.
- * Opened via a chat toggle button in the bottom nav or sidebar.
+ * Opened via a chat toggle button in the bottom nav (mobile) or sidebar (desktop).
  * Does NOT extend BasePage since there's no path to navigate to.
+ *
+ * Mobile viewport (390x844) uses BottomNavigationChat button.
+ * Desktop uses "Open Chat" button with aria-label.
  */
 export class ChatPage {
   readonly page: Page;
 
-  // Drawer open trigger
+  // Drawer open trigger — target mobile BottomNavigationChat specifically
   readonly chatToggleButton: Locator;
 
   // Chat drawer container and message locators
@@ -29,25 +32,24 @@ export class ChatPage {
   constructor(page: Page) {
     this.page = page;
 
-    // Chat toggle: look for chat button in nav/sidebar
-    this.chatToggleButton = page.getByRole('button', { name: /chat/i }).or(
-      page.locator('[class*="chat"] button, button[class*="chat"], [aria-label*="chat" i]').first()
-    );
+    // Chat toggle: for mobile tests, target BottomNavigationChat component directly.
+    // For desktop, target by aria-label. Use .last() since the desktop hidden button
+    // appears first in DOM and .first() would select the invisible one at mobile viewport.
+    this.chatToggleButton = page.locator('button[component="BottomNavigationChat"]');
 
-    // Chat drawer/sidebar container
-    this.chatDrawer = page.locator('[class*="ChatDrawer"], [class*="chat-drawer"], [class*="chatDrawer"]').first().or(
-      page.getByRole('complementary').filter({ hasText: /chat/i })
-    ).or(
-      page.locator('[class*="drawer"], [class*="sidebar"]').filter({ has: page.locator('[class*="chat" i]') }).first()
-    );
+    // Chat drawer/sidebar container — anchor on "Enter a message" placeholder input
+    // and find its parent panel/container
+    this.chatDrawer = page.locator('aside, [role="dialog"], div').filter({
+      has: page.getByPlaceholder(/enter a message/i)
+    }).first();
 
-    // Individual chat message elements
+    // Individual chat message elements — messages show as username: text
     this.chatMessages = this.chatDrawer.locator('[class*="message"]').or(
-      this.chatDrawer.getByRole('listitem')
+      this.chatDrawer.locator('div, p, span').filter({ hasText: /\w+:/ })
     );
 
-    // Message input field
-    this.chatInput = page.getByRole('textbox', { name: /message|chat/i }).or(
+    // Message input field — "Enter a message" placeholder
+    this.chatInput = page.getByPlaceholder(/enter a message/i).or(
       this.chatDrawer.locator('input, textarea').first()
     );
 

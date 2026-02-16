@@ -5,7 +5,7 @@
  * inspecting the live site and overridden via environment variables.
  *
  * buyPath: The page on cooked.com that embeds the Swapped.com widget.
- * Default '/crypto/buy' is a TODO placeholder — needs live site inspection.
+ * URL is '/en-us?wallet_tab=buy-crypto' — opens wallet dialog (requires login).
  *
  * iframeSrcPattern: Substring to match in the Swapped.com iframe src attribute.
  * Default 'connect.swapped.com' per Swapped.com docs
@@ -16,6 +16,6 @@
  * CRYPTO_IFRAME_SRC=connect.swapped.com
  */
 export const cryptoConfig = {
-  buyPath: process.env.CRYPTO_BUY_PATH || '/crypto/buy',
+  buyPath: process.env.CRYPTO_BUY_PATH || '/en-us?wallet_tab=buy-crypto',
   iframeSrcPattern: process.env.CRYPTO_IFRAME_SRC || 'connect.swapped.com',
 } as const;

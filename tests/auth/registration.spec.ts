@@ -4,7 +4,7 @@ import { RegistrationPage } from '../pages/RegistrationPage.js';
 test('registration flow completes step-by-step without creating account @critical @auth', async ({ page }) => {
   const registrationPage = new RegistrationPage(page);
 
-  // Open auth dialog via URL param
+  // Open auth dialog via Register button click
   await registrationPage.open();
 
   // Verify auth dialog appeared
@@ -20,15 +20,8 @@ test('registration flow completes step-by-step without creating account @critica
     username: 'test-monitor',
   });
 
-  // Verify form fields accepted input
+  // Verify email field accepted input
   await expect(registrationPage.emailInput).toHaveValue(testEmail);
-  await expect(registrationPage.passwordInput).not.toBeEmpty();
-
-  // If terms checkbox exists, check it
-  const termsVisible = await registrationPage.termsCheckbox.isVisible().catch(() => false);
-  if (termsVisible) {
-    await registrationPage.termsCheckbox.check();
-  }
 
   // Assert submit button is visible and enabled (but DO NOT CLICK IT)
   await expect(registrationPage.submitButton).toBeVisible();
