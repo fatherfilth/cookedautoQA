@@ -53,7 +53,7 @@
 **Plans**: 1 plan
 
 Plans:
-- [ ] 07-01-PLAN.md — Auth setup project: per-run registration + storageState wiring
+- [x] 07-01-PLAN.md — Auth setup project: per-run registration + storageState wiring
 
 #### Phase 8: Test Enablement
 **Goal**: All 8 auth-gated tests pass with real authenticated sessions (0 skipped tests)
@@ -84,9 +84,9 @@ Phases execute in numeric order: 7 → 8
 | 4. Crypto Integration | v1.0 | 1/1 | Complete | 2026-02-15 |
 | 5. CI/CD & Alerting | v1.0 | 3/3 | Complete | 2026-02-16 |
 | 6. Documentation & Polish | v1.0 | 1/1 | Complete | 2026-02-16 |
-| 7. Auth Foundation | v1.1 | 0/1 | Planned | - |
+| 7. Auth Foundation | v1.1 | 1/1 | Complete | 2026-02-16 |
 | 8. Test Enablement | v1.1 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-16 — Phase 7 planned (1 plan)*
+*Last updated: 2026-02-16 — Phase 7 complete*
