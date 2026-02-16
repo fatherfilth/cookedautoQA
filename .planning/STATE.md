@@ -5,7 +5,7 @@
 See: .planning/PROJECT.md (updated 2026-02-16)
 
 **Core value:** Detect breakages in key user flows on cooked.com before real users hit them, with fast alerts and actionable failure artifacts.
-**Current focus:** Phase 9 - Account Verification
+**Current focus:** Phase 10 - Betting Activity Tests (complete)
 
 ## Current Position
 

@@ -70,7 +70,7 @@ Plans:
 - [x] 09-01-PLAN.md — Add verification form completion to auth setup project
 - [x] 09-02-PLAN.md — Update game tests to assert iframe-only (remove modal workaround)
 
-#### Phase 10: Betting Activity Tests
+#### Phase 10: Betting Activity Tests ✅
 **Goal**: Betting activity component validated in All Bets and High Rollers tabs
 **Depends on**: Phase 9 (verification may be needed for betting visibility)
 **Requirements**: BET-01, BET-02
@@ -78,10 +78,11 @@ Plans:
   1. Test validates "All Bets" tab shows betting entries at bottom of page
   2. Test validates "High Rollers" tab shows betting entries at bottom of page
   3. Both betting activity tests pass reliably in CI
-**Plans**: 1 plan
+**Plans**: 1 plan (complete)
+**Verified**: 2026-02-16 — 3/3 must-haves passed
 
 Plans:
-- [ ] 10-01-PLAN.md — Betting activity tests for All Bets and High Rollers tabs
+- [x] 10-01-PLAN.md — Betting activity tests for All Bets and High Rollers tabs
 
 #### Phase 11: Test Result History
 **Goal**: Every CI run commits test results to git for browsable history
@@ -110,9 +111,9 @@ Plans:
 | 7. Auth Foundation | v1.1 | 1/1 | Complete | 2026-02-16 |
 | 8. Test Enablement | v1.1 | 3/3 | Complete | 2026-02-16 |
 | 9. Account Verification | v1.2 | 2/2 | Complete | 2026-02-16 |
-| 10. Betting Activity Tests | v1.2 | 0/1 | Not started | - |
+| 10. Betting Activity Tests | v1.2 | 1/1 | Complete | 2026-02-16 |
 | 11. Test Result History | v1.2 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-16 — Phase 9 complete (2/2 plans, verified)*
+*Last updated: 2026-02-16 — Phase 10 complete (1/1 plans, verified)*
