@@ -66,11 +66,12 @@ Plans:
   4. Crypto buy iframe loads under authenticated session (Swapped.com widget appears)
   5. Crypto buy flow progresses through wallet selection step under authenticated session
   6. Tipping flow passes (tip button visible after authenticated session established)
-**Plans**: 2 plans
+**Plans**: 3 plans
 
 Plans:
-- [ ] 08-01-PLAN.md — Rewrite auth tests to use storageState (login + session persistence)
-- [ ] 08-02-PLAN.md — Remove conditional skips from game, crypto, and tipping tests
+- [x] 08-01-PLAN.md — Rewrite auth tests to use storageState (login + session persistence)
+- [x] 08-02-PLAN.md — Remove conditional skips from game, crypto, and tipping tests
+- [ ] 08-03-PLAN.md — Fix auth.setup.ts checkbox selector strict mode violation (gap closure)
 
 ## Progress
 
