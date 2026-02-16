@@ -15,6 +15,8 @@ jobs:
   test:
     timeout-minutes: 15
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -69,7 +71,7 @@ jobs:
           retention-days: 7
 
       - name: Send Slack alert on failure
-        if: failure()
+        if: always()
         run: node scripts/notify-slack.js
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -77,3 +79,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_SHA: ${{ github.sha }}
           GITHUB_REF_NAME: ${{ github.ref_name }}
+
+      - name: Commit test results to history
+        if: always()
+        run: node scripts/commit-results.js
